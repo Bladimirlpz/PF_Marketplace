@@ -5,7 +5,7 @@ const Main = () => {
           <div className="card bg-dark text-white border-0 mx-3">
             <img
               className="card-img img-fluid"
-              src="./src/assets/main.png.jpg"
+              src="./src/assets/img/main.png.jpg"
               alt="Card"
               height={500}
             />
