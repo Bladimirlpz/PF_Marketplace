@@ -40,7 +40,7 @@ const Producto = () => {
                     to={"/product/" + product.id}
                     className="btn btn-dark m-1"
                   >
-                    Comprar ahora
+                    Detalles
                   </button>
                   <button
                     className="btn btn-dark m-1"
