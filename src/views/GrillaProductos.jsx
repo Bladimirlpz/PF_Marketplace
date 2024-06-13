@@ -4,7 +4,10 @@ import Producto from "../components/Producto"
 
 const GrillaProductos = () => {
     return (
-        <Producto/>
+        <div>
+            hola
+            <Producto/>
+        </div>
     )
 }
 

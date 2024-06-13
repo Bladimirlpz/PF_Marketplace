@@ -12,7 +12,7 @@ const Footer = () => {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Bladimir Lopez
+                  XXXXXXX
                 </a>
               </p>
               <a
