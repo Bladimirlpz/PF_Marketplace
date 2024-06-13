@@ -5,7 +5,7 @@ const Main = () => {
           <div className="card bg-dark text-white border-0 mx-3">
             <img
               className="card-img img-fluid"
-              src="./assets/main.png.jpg"
+              src="./src/assets/main.png.jpg"
               alt="Card"
               height={500}
             />
@@ -13,8 +13,7 @@ const Main = () => {
               <div className="container">
                 <h5 className="card-title fs-1 text fw-lighter">New Season</h5>
                 <p className="card-text fs-5 d-none d-sm-block ">
-                  Aca hay que poner informacion sobre la nueva temporada y deberia
-                  ser un poco mas largo el texto.
+                Compre productos con Envío Gratis en el día en Marketplace Chile. Encuentre miles de marcas y productos a precios increíbles.
                 </p>
               </div>
             </div>
