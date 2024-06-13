@@ -4,8 +4,8 @@ import Form from "react-bootstrap/Form";
 const Contacto = () => {
   return (
     <div
-      style={{ width: "100%", height: "500px" }}
-      className="d-flex flex-column align-items-center pt-5 "
+      style={{ width: "100%", height: "55vw" }}
+      className="d-flex flex-column align-items-center pt-5 pb-5 "
     >
       <h3>CONTACTANOS</h3>
       <FloatingLabel
