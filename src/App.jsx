@@ -10,6 +10,7 @@ import Contacto from './views/Contacto'
 import Login from './views/Login'
 import Registrarse from './views/Registrarse'
 import Carrito from './views/Carrito'
+import ProductosProvider from './context/ProductosContext';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
 
   return (
     <>
+      <ProductosProvider>
       <BarraNav/>
         <Routes>
           <Route path='/' element={<Home/>}/>
@@ -29,6 +31,7 @@ function App() {
           <Route path='/Carrito' element={<Carrito/>}/>
         </Routes>
       <Footer/>
+      </ProductosProvider>
     </>
   )
 }
