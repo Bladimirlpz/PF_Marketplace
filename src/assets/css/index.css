@@ -1,0 +1,58 @@
+.filtros{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.filtros hr{
+    width: 90%;
+}
+.cards{
+    width: 100%;
+    padding:10px 10% 10px 10%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.button{
+    color: black;
+}
+.register{
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.register h5{
+    margin: 20px 0 5px 0;
+    display: flex;
+}
+.register hr{
+    width: 90%;
+}
+.alerta{
+    width: 35%;
+    margin-top: 10px;
+}
+a{
+    padding: 5px;
+}
+input{
+    width: 35%;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid black;
+    padding-left: 10px;
+}
+.login{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px;
+}
+.login hr{
+    width: 90%;
+}

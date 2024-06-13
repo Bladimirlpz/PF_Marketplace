@@ -1,11 +1,8 @@
 import { useContext } from "react";
 import { ProductosContext } from "../context/ProductosContext";
-//import Button from "react-bootstrap/Button";
-//import Card from "react-bootstrap/Card";
 
 const Producto = () => {
   const { apiData } = useContext(ProductosContext);
-
 
   return (
     <>
@@ -40,7 +37,7 @@ const Producto = () => {
                     to={"/product/" + product.id}
                     className="btn btn-dark m-1"
                   >
-                    Detalles
+                    Comprar ahora
                   </button>
                   <button
                     className="btn btn-dark m-1"
