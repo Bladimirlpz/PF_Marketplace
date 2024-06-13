@@ -1,11 +1,24 @@
 import { useContext } from "react";
 import { ProductosContext } from "../context/ProductosContext";
+import Button from "react-bootstrap/Button";
 
 const Producto = () => {
   const { apiData } = useContext(ProductosContext);
 
   return (
-    <>
+    <div>
+      <div className="filtros">
+        <h1>Últimos productos</h1>
+        <hr />
+        <div>
+          <Button variant="outline-dark m-2">Todos</Button>
+          <Button variant="outline-dark m-2">Hombre</Button>
+          <Button variant="outline-dark m-2">Mujer</Button>
+          <Button variant="outline-dark m-2">Joyeria</Button>
+          <Button variant="outline-dark m-2">Electronicos</Button>
+        </div>
+      </div>
+      <div className="cards">
       {apiData.length > 0
         ? apiData.map((product) => {
             return (
@@ -37,7 +50,7 @@ const Producto = () => {
                     to={"/product/" + product.id}
                     className="btn btn-dark m-1"
                   >
-                    Comprar ahora
+                    Detalle
                   </button>
                   <button
                     className="btn btn-dark m-1"
@@ -50,7 +63,8 @@ const Producto = () => {
             );
           })
         : null}
-    </>
+        </div>
+    </div>
   );
 };
 
