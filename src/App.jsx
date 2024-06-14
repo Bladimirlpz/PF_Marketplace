@@ -11,6 +11,7 @@ import Login from './views/Login'
 import Registrarse from './views/Registrarse'
 import Carrito from './views/Carrito'
 import ProductosProvider from './context/ProductosContext';
+import CarritoProvider from './context/CarritoContext';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
   return (
     <>
       <ProductosProvider>
+      <CarritoProvider>
       <BarraNav/>
         <Routes>
           <Route path='/' element={<Home/>}/>
@@ -31,6 +33,7 @@ function App() {
           <Route path='/Carrito' element={<Carrito/>}/>
         </Routes>
       <Footer/>
+      </CarritoProvider>
       </ProductosProvider>
     </>
   )
