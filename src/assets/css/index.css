@@ -56,3 +56,28 @@ input{
 .login hr{
     width: 90%;
 }
+
+.publicacion{
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.publicacion h5{
+    margin: 20px 0 5px 0;
+    display: flex;
+}
+.publicacion hr{
+    width: 90%;
+}
+
+select{
+    width: 35%;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid black;
+    padding-left: 10px;
+    text-align: center;
+}
