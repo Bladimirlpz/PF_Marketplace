@@ -2,6 +2,8 @@ import { useContext, useState, useEffect } from "react";
 import { ProductosContext } from "../context/ProductosContext.jsx";
 import Button from "react-bootstrap/Button";
 import { useCarrito } from "../hook/useCarrito.js"
+import { Link } from "react-router-dom";
+
 
 const Producto = () => {
   const { apiData } = useContext(ProductosContext);
@@ -90,12 +92,12 @@ const Producto = () => {
                       </li>
                     </ul>
                     <div className="card-body">
+                      <Link to={"/producto/" + product.id}>
                       <button
-                        to={"/product/" + product.id}
                         className="btn btn-dark m-1"
                       >
                         Detalle
-                      </button>
+                      </button></Link>
                       <button className="btn btn-dark m-1" onClick={()=>addCarrito(product)}>
                         Agregar al carrito
                       </button>
