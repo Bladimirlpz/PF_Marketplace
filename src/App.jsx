@@ -12,6 +12,7 @@ import Registrarse from './views/Registrarse'
 import Carrito from './views/Carrito'
 import ProductosProvider from './context/ProductosContext';
 import CarritoProvider from './context/CarritoContext';
+import DetalleProducto from './views/DetalleProducto'
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
           <Route path='/Login' element={<Login/>}/>
           <Route path='/Registrarse' element={<Registrarse/>}/>
           <Route path='/Carrito' element={<Carrito/>}/>
+          <Route path='/producto/:id' element={<DetalleProducto/>}/>
         </Routes>
       <Footer/>
       </CarritoProvider>
