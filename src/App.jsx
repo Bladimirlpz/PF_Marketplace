@@ -13,6 +13,11 @@ import Carrito from './views/Carrito'
 import ProductosProvider from './context/ProductosContext';
 import CarritoProvider from './context/CarritoContext';
 import DetalleProducto from './views/DetalleProducto'
+import NotFound from './views/NotFound'
+import { UsuariosProvider } from './context/UsuariosContext';
+import MiPerfil from './views/MiPerfil';
+import PublicarProducto from './views/PublicarProducto'
+import MisPublicaciones from './views/MisPublicaciones'
 
 
 function App() {
@@ -20,23 +25,30 @@ function App() {
 
   return (
     <>
+    <UsuariosProvider>
       <ProductosProvider>
       <CarritoProvider>
       <BarraNav/>
         <Routes>
           <Route path='/' element={<Home/>}/>
-          <Route path='/Home' element={<Home/>}/>
-          <Route path='/Productos' element={<GrillaProductos/>}/>
-          <Route path='/Nosotros' element={<Nosotros/>}/>
-          <Route path='/Contacto' element={<Contacto/>}/>
-          <Route path='/Login' element={<Login/>}/>
-          <Route path='/Registrarse' element={<Registrarse/>}/>
-          <Route path='/Carrito' element={<Carrito/>}/>
+          <Route path='/home' element={<Home/>}/>
+          <Route path='/productos' element={<GrillaProductos/>}/>
+          <Route path='/nosotros' element={<Nosotros/>}/>
+          <Route path='/contacto' element={<Contacto/>}/>
+          <Route path='/login' element={<Login/>}/>
+          <Route path='/registrarse' element={<Registrarse/>}/>
+          <Route path='/carrito' element={<Carrito/>}/>
           <Route path='/producto/:id' element={<DetalleProducto/>}/>
+          <Route path='/perfil' element={<MiPerfil/>}/>
+          <Route path='/publicar' element={<PublicarProducto/>}/>
+          <Route path='/mis-publicaciones' element={<MisPublicaciones/>}/>
+          {/* <Route path='/perfil/:id' element={<MiPerfil/>}/> */}
+          <Route path='*' element={<NotFound/>}/>
         </Routes>
       <Footer/>
       </CarritoProvider>
       </ProductosProvider>
+    </UsuariosProvider>
     </>
   )
 }

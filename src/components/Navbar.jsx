@@ -29,17 +29,17 @@ const BarraNav = () => {
                 Home
               </Button>
             </Link>
-            <Link to="/Productos">
+            <Link to="/productos">
               <Button variant="link text-decoration-none" className="btn btn-light">
                 Productos
               </Button>
             </Link>
-            <Link to="/Nosotros">
+            <Link to="/nosotros">
               <Button variant="link text-decoration-none" className="btn btn-light">
                 Nosotros
               </Button>
             </Link>
-            <Link to="/Contacto">
+            <Link to="/contacto">
               <Button variant="link text-decoration-none" className="btn btn-light">
                 Contacto
               </Button>
@@ -51,12 +51,12 @@ const BarraNav = () => {
                 <i className="fa fa-sign-in-alt mr-1"></i>Login
               </Button>
             </Link>
-            <Link to="/Registrarse">
+            <Link to="/registrarse">
               <Button variant="outline-dark m-2">
                 <i className="fa fa-user-plus mr-1"></i>Registrarse
               </Button>
             </Link>
-            <Link to="/Carrito">
+            <Link to="/carrito">
               <Button variant="outline-dark m-2">
                 <i className="fa fa-cart-shopping mr-1"></i>Carrito
               </Button>

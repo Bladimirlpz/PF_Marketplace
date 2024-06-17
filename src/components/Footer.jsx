@@ -8,7 +8,7 @@ const Footer = () => {
                 Realizado por generacion G50 {" "}  
                 <a
                   href="https://github.com/Sergiobasstidas"
-                  className="text-decoration-underline text-dark fs-5"
+                  className="links fs-5"
                   target="_blank"
                   rel="noreferrer"
                 >

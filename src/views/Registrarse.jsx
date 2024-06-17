@@ -78,7 +78,7 @@ const Registrarse = () => {
           <Alert error={error} success={success} />
           <h6>
             Ya tienes cuenta?
-            <Link to="/login">Login</Link>
+            <Link to="/login" className="links">Login</Link>
           </h6>
           <Button
             type="submit"
