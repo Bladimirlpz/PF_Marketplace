@@ -3,10 +3,11 @@ import { createContext, useState, useEffect } from "react";
 
 export const UsuariosContext = createContext();
 
+// eslint-disable-next-line react/prop-types
 export const UsuariosProvider = ({ children }) => {
   const [usuarios, setUsuarios] = useState([]);
   
-  const url = "../assets/json/usuarios.json";
+  const url = "../src/assets/json/usuarios.json";
 
   useEffect(() => {
     const obtenerUsuarios = async () => {
@@ -21,10 +22,10 @@ export const UsuariosProvider = ({ children }) => {
         console.error("Error fetching usuarios:", error);
       }
     };
-
+    
     obtenerUsuarios();
   }, []);
-
+  
 
   return (
     <UsuariosContext.Provider value={{ usuarios }}>
