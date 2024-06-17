@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "nombre": "Ash",
+    "apellido": "Ketchum",
+    "email": "ash@gmail.com",
+    "contraseña": "ash123"
+  },
+  {
+    "id": 2,
+    "nombre": "Homero",
+    "apellido": "Simpson",
+    "email": "homero@gmail.com",
+    "contraseña": "homero123"
+  }
+]
