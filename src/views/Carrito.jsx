@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useCarrito } from "../hook/useCarrito";
+import { useCarrito } from "../hooks/useCarrito";
 import { FaRegMinusSquare } from "react-icons/fa";
 import { FaRegPlusSquare } from "react-icons/fa";
 

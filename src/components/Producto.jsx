@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { ProductosContext } from "../context/ProductosContext.jsx";
 import Button from "react-bootstrap/Button";
-import { useCarrito } from "../hook/useCarrito.js"
+import { useCarrito } from "../hooks/useCarrito.js"
 import { Link } from "react-router-dom";
 
 
