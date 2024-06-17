@@ -13,7 +13,8 @@ import Carrito from './views/Carrito'
 import ProductosProvider from './context/ProductosContext';
 import CarritoProvider from './context/CarritoContext';
 import DetalleProducto from './views/DetalleProducto'
-
+import MisPublicaciones from './views/MisPublicaciones';
+import MisPublicacionesProvider from './context/MisPublicacionesContext';
 
 function App() {
   
@@ -22,6 +23,7 @@ function App() {
     <>
       <ProductosProvider>
       <CarritoProvider>
+          <MisPublicacionesProvider>
       <BarraNav/>
         <Routes>
           <Route path='/' element={<Home/>}/>
@@ -33,8 +35,10 @@ function App() {
           <Route path='/Registrarse' element={<Registrarse/>}/>
           <Route path='/Carrito' element={<Carrito/>}/>
           <Route path='/producto/:id' element={<DetalleProducto/>}/>
+          <Route path='/MisPublicaciones' element={<MisPublicaciones/>}/>
         </Routes>
       <Footer/>
+          </MisPublicacionesProvider>
       </CarritoProvider>
       </ProductosProvider>
     </>
