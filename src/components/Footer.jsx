@@ -7,12 +7,11 @@ const Footer = () => {
               <p className="mb-3 mb-md-0">
                 Realizado por generacion G50 {" "}  
                 <a
-                  href="https://github.com/Sergiobasstidas"
+                  href="https://github.com/"
                   className="links fs-5"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  XXXXXXX
                 </a>
               </p>
               <a
