@@ -1,6 +1,6 @@
 import { useEffect, useState, createContext } from "react";
  
-const url = "https://fakestoreapi.com/products/"
+const url = "http://localhost:3000/"
 
 export const ProductosContext = createContext()
 
@@ -17,7 +17,7 @@ function ProductosProvider({ children }) {
             alert("Error Api");
         }
     }
-
+console.log(apiData)
 
 useEffect (()=> {
     apiInfo()
