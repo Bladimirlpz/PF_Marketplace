@@ -25,7 +25,7 @@ const Carrito = () => {
     let subtotal = 0;
     let totalItems = 0;
     carrito.map((item) => {
-      return (subtotal += item.price * item.cantidad);
+      return (subtotal += item.precio * item.cantidad);
     });
 
     carrito.map((item) => {
@@ -52,8 +52,8 @@ const Carrito = () => {
                                 data-mdb-ripple-color="light"
                               >
                                 <img
-                                  src={item.image}
-                                  alt={item.title}
+                                  src={item.imagen}
+                                  alt={item.nombre_producto}
                                   width={100}
                                   height={75}
                                 />
@@ -62,7 +62,7 @@ const Carrito = () => {
 
                             <div className="col-lg-5 col-md-6">
                               <p>
-                                <strong>{item.title}</strong>
+                                <strong>{item.nombre_producto}</strong>
                               </p>
                             </div>
 
@@ -97,7 +97,7 @@ const Carrito = () => {
                                   <span className="text-muted">
                                     {item.cantidad}
                                   </span>{" "}
-                                  x ${item.price}
+                                  x ${item.precio}
                                 </strong>
                               </p>
                             </div>
