@@ -10,16 +10,15 @@ const DetalleProducto = () => {
   const { addCarrito } = useContext(CarritoContext)
   const { id } = useParams();
 
-  const filtraProducto = (id) =>{
-    const productoFiltrado = apiData.filter((producto) => producto.id === id);
-    setDetalle(productoFiltrado)
-  }
+
   useEffect(() => {
-    filtraProducto()
-  },[])
+    const productoFiltrado = apiData.find((producto) => producto.id == id);
+    setDetalle(productoFiltrado)
+    console.log(apiData)
+
+  },[id, apiData])
 
   
-  console.log()
   return (
     
     <div className="container my-5 py-2">
@@ -27,17 +26,17 @@ const DetalleProducto = () => {
       <div className="col-md-6 col-sm-12 py-3">
         <img
           className="img-fluid"
-          src={detalle.image}
-          alt={detalle.title}
+          src={detalle?.image}
+          alt={detalle?.title}
           width="400px"
           height="400px"
         />
       </div>
       <div className="col-md-6 col-md-6 py-5">
-        <h4 className="text-uppercase text-muted">{detalle.category}</h4>
-        <h1 className="display-5">{detalle.title}</h1>
-        <h3 className="display-6  my-4">${detalle.price}</h3>
-        <p className="lead">{detalle.description}</p>
+        <h4 className="text-uppercase text-muted">{detalle?.category}</h4>
+        <h1 className="display-5">{detalle?.title}</h1>
+        <h3 className="display-6  my-4">${detalle?.price}</h3>
+        <p className="lead">{detalle?.description}</p>
         <button
           className="btn btn-outline-dark"
           onClick={()=>addCarrito(detalle)}

@@ -3,8 +3,9 @@ import { MisPublicacionesContext } from "../context/MisPublicacionesContext";
 
 const MisPublicaciones = () => {
   const { apiMisPublicaciones } = useContext(MisPublicacionesContext);
-  console.log(apiMisPublicaciones)
+  
   {
+    return(
     apiMisPublicaciones.length > 0
       ? apiMisPublicaciones.map((ele) => {
           return (
@@ -29,7 +30,7 @@ const MisPublicaciones = () => {
             </div>
           );
         })
-      : null;
+      : null);
   }
 };
 

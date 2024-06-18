@@ -1,25 +1,20 @@
-// import { useContext } from "react";
-// import { useParams } from "react-router-dom";
-// import { UsuariosContext } from "../context/UsuariosContext";
+import { useContext } from "react";
+import { UsuariosContext } from "../context/UsuariosContext";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const MiPerfil = () => {
-  // const { usuarios } = useContext(UsuariosContext);
-  // const { nombre } = useParams();
+   const { usuarios } = useContext(UsuariosContext);
+   
 
-  // const usuario = usuarios.find((user) => user.nombre === nombre);
-
-  // if (!usuario) {
-  //   return <p>Usuario no encontrado</p>;
-  // }
+  
 
   return (
     <div className="mi-perfil">
-      {/* <h1>Perfil de {usuario.nombre}</h1>
-      <h5>Nombre: {usuario.nombre}</h5>
-      <>Apellido: {usuario.apellido}</h5>
-      <h5>Email: {usuario.email}</h5> */}
+      <h1>Perfil de {usuarios.nombre}</h1>
+      <h5>Nombre: {usuarios.nombre}</h5>
+      <h5>Apellido: {usuarios.apellido}</h5>
+      <h5>Email: {usuarios.email}</h5>
       <div className="titulo-usuario">
         <h1>Perfil de Usuario</h1>
         <hr />

@@ -6,7 +6,7 @@ const Nosotros = () => {
         <h1 className="text-center">Acerca de nosotros</h1>
         <hr />
         <p className="lead text-center">
-        Market Place es una compañía de tecnología que ofrece servicios vinculados principalmente al comercio electrónico
+          Mercado Libre es una compañía de tecnología que ofrece servicios vinculados principalmente al comercio electrónico
         </p>
 
         <h2 className="text-center py-4">Nuestros Productos</h2>

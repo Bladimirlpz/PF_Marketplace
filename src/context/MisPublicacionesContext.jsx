@@ -1,6 +1,6 @@
 import { useEffect, useState, createContext } from "react";
  
-const url = "https://fakestoreapi.com/products/3"
+const url = "https://fakestoreapi.com/products/"
 
 export const MisPublicacionesContext = createContext()
 
@@ -12,7 +12,7 @@ function MisPublicacionesProvider({ children }) {
         try {
             const res = await fetch(url)
             const data = await res.json()
-            setApiMisPublicaciones(data)
+            setApiMisPublicaciones([data])
         } catch (error) {
             alert("Error Api");
         }
