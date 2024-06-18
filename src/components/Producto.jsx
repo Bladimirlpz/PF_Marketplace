@@ -11,7 +11,7 @@ const Producto = () => {
   const { addCarrito } = useCarrito()
 
   const filterProduct = (cat) => {
-    const updatedList = apiData.filter((item) => item.category === cat);
+    const updatedList = apiData.filter((item) => item.categoria === cat);
     setFiltros(updatedList);
   };
   
