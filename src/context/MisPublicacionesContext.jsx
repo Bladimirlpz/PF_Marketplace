@@ -1,6 +1,6 @@
 import { useEffect, useState, createContext } from "react";
  
-const url = "https://fakestoreapi.com/products/"
+const url = "https://fakestoreapi.com/products/3"
 
 export const MisPublicacionesContext = createContext()
 
