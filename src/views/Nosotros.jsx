@@ -1,4 +1,4 @@
-import MisPublicaciones from "./MisPublicaciones";
+
 
 const Nosotros = () => {
     return (
@@ -64,7 +64,6 @@ const Nosotros = () => {
             </div>
           </div>
         </div>
-        <MisPublicaciones/>
       </div>
     );
   };
