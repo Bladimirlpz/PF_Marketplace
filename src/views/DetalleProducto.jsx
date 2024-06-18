@@ -26,17 +26,17 @@ const DetalleProducto = () => {
       <div className="col-md-6 col-sm-12 py-3">
         <img
           className="img-fluid"
-          src={detalle?.image}
-          alt={detalle?.title}
+          src={detalle.imagen}
+          alt={detalle.nombre_producto}
           width="400px"
           height="400px"
         />
       </div>
       <div className="col-md-6 col-md-6 py-5">
         <h4 className="text-uppercase text-muted">{detalle?.category}</h4>
-        <h1 className="display-5">{detalle?.title}</h1>
-        <h3 className="display-6  my-4">${detalle?.price}</h3>
-        <p className="lead">{detalle?.description}</p>
+        <h1 className="display-5">{detalle.nombre_producto}</h1>
+        <h3 className="display-6  my-4">${detalle.precio}</h3>
+        <p className="lead">{detalle.descripcion}</p>
         <button
           className="btn btn-outline-dark"
           onClick={()=>addCarrito(detalle)}

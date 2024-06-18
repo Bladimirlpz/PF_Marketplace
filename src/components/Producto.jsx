@@ -86,7 +86,7 @@ const Producto = () => {
                       </li>
                     </ul>
                     <div className="card-body">
-                      <Link to={"/producto/" + product.id}>
+                      <Link to={"/" + product.id}>
                       <button
                         className="btn btn-dark m-1"
                       >
