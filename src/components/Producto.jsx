@@ -38,27 +38,21 @@ const Producto = () => {
           </Button>
           <Button
             variant="outline-dark m-2"
-            onClick={() => filterProduct("men's clothing")}
+            onClick={() => filterProduct("hombre")}
           >
             Hombre
           </Button>
           <Button
             variant="outline-dark m-2"
-            onClick={() => filterProduct("women's clothing")}
+            onClick={() => filterProduct("mujer")}
           >
             Mujer
           </Button>
           <Button
             variant="outline-dark m-2"
-            onClick={() => filterProduct("jewelery")}
+            onClick={() => filterProduct("electro")}
           >
-            Joyeria
-          </Button>
-          <Button
-            variant="outline-dark m-2"
-            onClick={() => filterProduct("electronics")}
-          >
-            Electronicos
+            Electronica
           </Button>
         </div>
       </div>
@@ -74,21 +68,21 @@ const Producto = () => {
                   <div className="card text-center h-100" key={product.id}>
                     <img
                       className="card-img-top p-3"
-                      src={product.image}
+                      src={product.imagen}
                       alt="Card"
                       height={300}
                     />
                     <div className="card-body">
                       <h5 className="card-title">
-                        {product.title.substring(0, 12)}...
+                        {product.nombre_producto}...
                       </h5>
                       <p className="card-text">
-                        {product.description.substring(0, 90)}...
+                        {product.descripcion}...
                       </p>
                     </div>
                     <ul className="list-group list-group-flush">
                       <li className="list-group-item lead">
-                        $ {product.price}
+                        $ {product.precio}
                       </li>
                     </ul>
                     <div className="card-body">
