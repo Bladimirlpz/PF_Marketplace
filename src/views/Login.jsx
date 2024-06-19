@@ -9,41 +9,31 @@ export default function Login() {
     "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{1,4}$"
   );
 
-  const [email, setEmail] = useState("");
-  const [contraseña, setContraseña] = useState("");
-  const [error, setError] = useState("");
   const navigate = useNavigate();
-  
-  const { usuarios } = useContext(UsuariosContext);
+  const [error, setError] = useState("");
+  const { usuario, setUsuario } = useContext(UsuariosContext);
+
+  const handleUser = (event) => setUsuario({...usuario, [event.target.name]: event.target.value})
 
   const validLogin = (event) => {
     event.preventDefault();
     setError("");
 
-    if (email === "") {
+    if (usuario.email === "") {
       setError("Ingresa tu email");
       return;
     }
-    if (!validEmail.test(email)) {
+    if (!validEmail.test(usuario.email)) {
       setError("Correo inválido");
       return;
     }
-    if (contraseña === "") {
+    if (usuario.contraseña === "") {
       setError("Ingresa tu contraseña");
       return;
     }
 
-    const usuario = usuarios.find(
-      (user) => user.email === email || user.contraseña === contraseña
-    );
     
-    if (usuario) {
-      navigate(`/perfil/${usuario.id}`);
-    } else {
-      setError("Credenciales incorrectas");
-    }
   };
-
 
   return (
     <div className="login">
@@ -53,16 +43,18 @@ export default function Login() {
         <h5>Email</h5>
         <input
           type="text"
+          name='email'
           placeholder="Ingresa tu email"
-          onChange={(event) => setEmail(event.target.value)} 
-          value={email}
+          onChange={handleUser} 
+          value={usuario.email}
         />
         <h5>Contraseña</h5>
         <input
           type="password"
+          name='contraseña'
           placeholder="Ingresa tu contraseña"
-          onChange={(event) => setContraseña(event.target.value)}
-          value={contraseña}
+          onChange={handleUser}
+          value={usuario.contraseña}
         />
         {error && <Alert error={error} />}
         <Button type="submit" variant="outline-dark" className="mt-3">
