@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import Alert from './Alerta';
@@ -13,7 +13,7 @@ export default function Login() {
   const [error, setError] = useState("");
   const { usuario, setUsuario } = useContext(UsuariosContext);
 
-  const handleUser = (event) => setUsuario({...usuario, [event.target.name]: event.target.value})
+  const handleUser = (event) => setUsuario({ ...usuario, [event.target.name]: event.target.value })
 
   const validLogin = (event) => {
     event.preventDefault();
@@ -31,10 +31,32 @@ export default function Login() {
       setError("Ingresa tu contraseña");
       return;
     }
+    const enviarDatosBack = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(usuario)
+        })
+        const respuestaBackend = await response.json();
+        console.log('Respuesta del backend:', respuestaBackend);
+      } catch (error) {
+        throw new Error('Hubo un problema al enviar los datos.');
+      }
+    }
+    enviarDatosBack()
+    navigate('/contacto')
 
-    
   };
 
+  useEffect(() => {
+    if (window.sessionStorage.getItem('token')) {
+      navigate('/nosotros')
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   return (
     <div className="login">
       <h1>Login</h1>
@@ -45,7 +67,7 @@ export default function Login() {
           type="text"
           name='email'
           placeholder="Ingresa tu email"
-          onChange={handleUser} 
+          onChange={handleUser}
           value={usuario.email}
         />
         <h5>Contraseña</h5>

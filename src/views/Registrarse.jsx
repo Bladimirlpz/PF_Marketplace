@@ -1,7 +1,7 @@
 import Alert from "./Alerta";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Registrarse = () => {
   const validName = /^[a-zA-Z]+$/;
@@ -9,28 +9,28 @@ const Registrarse = () => {
     "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$"
   );
 
-  const [nombre, setNombre] = useState("");
-  const [apellido, setApellido] = useState("");
-  const [email, setEmail] = useState("");
-  const [clave, setClave] = useState("");
+  const navigate = useNavigate()
+  const [user, setUser] = useState([])
+  const handleUser = (event) => setUser({ ...user, [event.target.name]: event.target.value })
+
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
   const validarInput = (event) => {
     event.preventDefault();
-    if (nombre === "") {
+    if (user.nombre === "") {
       return setError("Debes ingresar un nombre");
-    } else if (!validName.test(nombre)) {
+    } else if (!validName.test(user.nombre)) {
       return setError("Nombre invalido");
-    } else if (apellido === "") {
+    } else if (user.apellido === "") {
       return setError("Debes ingresar un apellido");
-    } else if (!validName.test(apellido)) {
+    } else if (!validName.test(user.apellido)) {
       return setError("Apellido invalido");
-    } else if (email === "") {
+    } else if (user.email === "") {
       return setError("Ingresa un correo");
-    } else if (!validEmail.test(email)) {
+    } else if (!validEmail.test(user.email)) {
       return setError("Correo Invalido");
-    } else if (clave === "") {
+    } else if (user.clave === "") {
       return setError("Ingresa una clave");
     }
 
@@ -38,7 +38,33 @@ const Registrarse = () => {
       setError("");
       setSuccess("Registrado con exito!");
     }
+
+    const enviarDatosBack = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/registrarse', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(user)
+        })
+        const respuestaBackend = await response.json();
+        console.log('Respuesta del backend:', respuestaBackend);
+      } catch (error) {
+        throw new Error('Hubo un problema al enviar los datos.');
+      }
+    }
+    enviarDatosBack()
+    window.alert('Usuario registrado con éxito 😀.')
+    navigate('/perfil')
   };
+
+  useEffect(() => {
+    if (window.sessionStorage.getItem('token')) {
+      navigate('/miPerfil')
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div>
@@ -51,29 +77,36 @@ const Registrarse = () => {
             className="inputs"
             type="text"
             placeholder="Nombre"
-            onChange={(event) => setNombre(event.target.value)}
+            onChange={handleUser}
+            value={user.nombre}
+            name="nombre"
           />
           <h5>Apellido</h5>
           <input
             className="inputs"
             type="text"
             placeholder="Apellido"
-            onChange={(event) => setApellido(event.target.value)}
+            onChange={handleUser}
+            value={user.apellido}
+            name="apellido"
           />
           <h5>Email</h5>
           <input
             className="inputs"
             type="text"
             placeholder="tuEmail@ejemplo.com"
-            onChange={(event) => setEmail(event.target.value)}
+            onChange={handleUser}
+            value={user.email}
+            name="email"
           />
           <h5>Contraseña</h5>
           <input
             className="inputs"
             type="password"
-            value={clave}
             placeholder="Contraseña"
-            onChange={(event) => setClave(event.target.value)}
+            onChange={handleUser}
+            value={user.contraseña}
+            name="contraseña"
           />
           <Alert error={error} success={success} />
           <h6>

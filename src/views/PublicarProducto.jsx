@@ -3,34 +3,52 @@ import { Button } from "react-bootstrap";
 import { useState } from "react";
 
 const PublicarProducto = () => {
-  const [nombreProducto, setNombreProducto] = useState("");
-  const [descripcion, setDescripcion] = useState("");
-  const [precio, setPrecio] = useState("");
-  const [imagen, setImagen] = useState("");
-  const [stock, setStock] = useState("");
-  const [error, setError] = useState("");
+
+  const [producto, setProducto] = useState([])
   const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
+
+  const handleUser = (event) => setProducto({ ...producto, [event.target.name]: event.target.value })
+
 
   const validarInput = (event) => {
     event.preventDefault();
-    if (nombreProducto === "") {
+    if (producto.nombre === "") {
       return setError("Debes ingresar un nombre del producto");
-    } else if (descripcion === "") {
+    } else if (producto.descripcion === "") {
       return setError("Debes ingresar una descripcion del producto");
-    }  else if (precio === "") {
+    } else if (producto.precio === "") {
       return setError("Ingresa el precio del producto");
-    }  else if (imagen === "") {
+    } else if (producto.imagen === "") {
       return setError("Ingresa la imagen del producto");
-    } else if (stock === "") {
+    } else if (producto.stock === "") {
       return setError("Ingresa la cantidad de productos");
     }
-
     {
       setError("");
-      setSuccess("Publicado con exito!");
+      setSuccess("Producto publicado con exito!");
     }
+    const enviarDatosBack = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/publicar', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(producto)
+        })
+        const respuestaBackend = await response.json();
+        console.log('Respuesta del backend:', respuestaBackend);
+      } catch (error) {
+        throw new Error('Hubo un problema al enviar los datos.');
+      }
+    }
+    enviarDatosBack()
+    window.alert('Producto publicado con exito 😀.')
   };
 
+
+  console.log(producto)
   return (
     <div>
       <div className="publicacion">
@@ -43,20 +61,26 @@ const PublicarProducto = () => {
             className="inputs"
             type="text"
             placeholder="Nombre del producto"
-            onChange={(event) => setNombreProducto(event.target.value)}
+            onChange={handleUser}
+            name="nombre"
+            value={producto.nombre}
           />
           <h5>Descripción</h5>
           <input
             className="inputs"
             type="text"
             placeholder="Descripción del producto"
-            onChange={(event) => setDescripcion(event.target.value)}
+            onChange={handleUser}
+            name="descripcion"
+            value={producto.descripcion}
           />
           <h5>Categoria</h5>
           <select
             className="select"
             type="text"
-            onChange={(event) => setPrecio(event.target.value)}
+            onChange={handleUser}
+            value={producto.categoria}
+            name="categoria"
           >
             <option>Hombre</option>
             <option>Mujer</option>
@@ -68,21 +92,27 @@ const PublicarProducto = () => {
             className="inputs"
             type="number"
             placeholder="1.990"
-            onChange={(event) => setPrecio(event.target.value)}
+            onChange={handleUser}
+            name="precio"
+            value={producto.precio}
           />
           <h5>Imagen</h5>
           <input
             className="inputs"
             type="img"
             placeholder="URL imagen"
-            onChange={(event) => setImagen(event.target.value)}
+            onChange={handleUser}
+            name="imagen"
+            value={producto.imagen}
           />
           <h5>Stock</h5>
           <input
             className="inputs"
             type="number"
             placeholder="Inserte cantidad de productos"
-            onChange={(event) => setStock(event.target.value)}
+            onChange={handleUser}
+            name="stock"
+            value={producto.stock}
           />
           <Alert error={error} success={success} />
 
