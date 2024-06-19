@@ -38,19 +38,19 @@ const Producto = () => {
           </Button>
           <Button
             variant="outline-dark m-2"
-            onClick={() => filterProduct("hombre")}
+            onClick={() => filterProduct("Hombre")}
           >
             Hombre
           </Button>
           <Button
             variant="outline-dark m-2"
-            onClick={() => filterProduct("mujer")}
+            onClick={() => filterProduct("Mujer")}
           >
             Mujer
           </Button>
           <Button
             variant="outline-dark m-2"
-            onClick={() => filterProduct("electro")}
+            onClick={() => filterProduct("Electro")}
           >
             Electronica
           </Button>
