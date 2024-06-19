@@ -14,7 +14,6 @@ const DetalleProducto = () => {
   useEffect(() => {
     const productoFiltrado = apiData.find((producto) => producto.id == id);
     setDetalle(productoFiltrado)
-    console.log(apiData)
 
   },[id, apiData])
 
