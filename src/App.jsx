@@ -16,19 +16,17 @@ import DetalleProducto from './views/DetalleProducto'
 import MisPublicaciones from './views/MisPublicaciones';
 import MisPublicacionesProvider from './context/MisPublicacionesContext';
 import NotFound from './views/NotFound'
-import { UsuariosProvider } from './context/UsuariosContext';
 import MiPerfil from './views/MiPerfil';
 import PublicarProducto from './views/PublicarProducto'
-
+import UsuarioProvider from './context/UsuariosContext';
 
 
 
 function App() {
-  
 
   return (
     <>
-    <UsuariosProvider>
+    <UsuarioProvider>
       <ProductosProvider>
       <CarritoProvider>
           <MisPublicacionesProvider>
@@ -52,7 +50,7 @@ function App() {
           </MisPublicacionesProvider>
       </CarritoProvider>
       </ProductosProvider>
-    </UsuariosProvider>
+    </UsuarioProvider>
     </>
   )
 }
