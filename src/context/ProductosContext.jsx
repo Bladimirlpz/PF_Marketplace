@@ -17,7 +17,6 @@ function ProductosProvider({ children }) {
             alert("Error Api");
         }
     }
-console.log(apiData)
 
 useEffect (()=> {
     apiInfo()
