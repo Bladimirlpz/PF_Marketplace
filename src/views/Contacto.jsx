@@ -24,17 +24,15 @@ const Contacto = () => {
       >
         <Form.Control type="email" placeholder="name@example.com" />
       </FloatingLabel>
-
-      <FloatingLabel 
-        controlId="floatingTextarea2" 
+      <FloatingLabel
+        controlId="floatingTextarea2"
         label="Deja tu mesaje aqui"
         style={{ width: "50%" }}
-        >
-        
+      >
         <Form.Control
           as="textarea"
           placeholder="Deja tu mesaje aqui"
-          style={{ height: "150px"}}
+          style={{ height: "150px" }}
         />
       </FloatingLabel>
     </div>
