@@ -1,20 +1,64 @@
-//import { useContext } from "react";
-//import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { UsuarioLoginContext } from "../context/UsuarioLoginContext";
 
 const BarraNav = () => {
-  //const navigate = useNavigate()
-  //const { getUsuario, setUsuario } = useContext([])
+  const navigate = useNavigate()
+  const { usuarioLogin, setUsuarioLogin } = useContext(UsuarioLoginContext)
+  
+  const logout = () => {
+    setUsuarioLogin()
+    window.sessionStorage.removeItem('token')
+    navigate('/')
+  }
 
-  //const logout = () => {
-  //setUsuario();
-  //window.sessionStorage.removeItem("token");
-  //navigate('/')
-
+  const isLogin = () => {
+    if (!usuarioLogin) {
+      return (
+        <>
+          <Link to="/login">
+              <Button variant="outline-dark m-2">
+                <i className="fa fa-sign-in-alt mr-1"></i>Login
+              </Button>
+            </Link>
+            <Link to="/registrarse">
+              <Button variant="outline-dark m-2">
+                <i className="fa fa-user-plus mr-1"></i>Registrarse
+              </Button>
+            </Link>
+            <Link to="/carrito">
+              <Button variant="outline-dark m-2">
+                <i className="fa fa-cart-shopping mr-1"></i>Carrito
+              </Button>
+            </Link>
+        </>
+      )
+    }
+    return (
+      <>
+        <Link to="/perfil">
+              <Button variant="outline-dark m-2">
+                <i className="fa fa-sign-in-alt mr-1"></i>Mi Perfil
+              </Button>
+            </Link>
+            <Link to="/">
+              <Button variant="outline-dark m-2" onClick={logout}>
+                Salir
+              </Button>
+            </Link>
+            <Link to="/carrito">
+              <Button variant="outline-dark m-2">
+                <i className="fa fa-cart-shopping mr-1"></i>Carrito
+              </Button>
+            </Link>
+      </>
+    )
+  }
   return (
     <Navbar expand="lg" className="bg-body-tertiary text-center  ">
       <Container fluid>
@@ -46,21 +90,7 @@ const BarraNav = () => {
             </Link>
           </Nav>
           <div className="buttons text-center d-flex flex-row">
-            <Link to="/login">
-              <Button variant="outline-dark m-2">
-                <i className="fa fa-sign-in-alt mr-1"></i>Login
-              </Button>
-            </Link>
-            <Link to="/registrarse">
-              <Button variant="outline-dark m-2">
-                <i className="fa fa-user-plus mr-1"></i>Registrarse
-              </Button>
-            </Link>
-            <Link to="/carrito">
-              <Button variant="outline-dark m-2">
-                <i className="fa fa-cart-shopping mr-1"></i>Carrito
-              </Button>
-            </Link>
+            {isLogin()}
           </div>
         </Navbar.Collapse>
       </Container>
