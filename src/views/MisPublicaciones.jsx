@@ -78,7 +78,7 @@ const MisPublicaciones = () => {
   return (
     <>
       <div className="container my-3 py-3">
-        <h1 className="text-center">Carrito</h1>
+        <h1 className="text-center">Mis Publicaciones</h1>
         <hr />
         {usuarioLogin.length > 0 ? <Publicaciones /> : <EmptyPublicaciones />}
       </div>
