@@ -1,16 +1,19 @@
 import Alert from "./Alerta";
 import { Button } from "react-bootstrap";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UsuarioLoginContext } from "../context/UsuarioLoginContext";
+import { useNavigate } from "react-router-dom";
 
 const PublicarProducto = () => {
-
+  const { usuarioLogin } = useContext(UsuarioLoginContext)
   const [producto, setProducto] = useState([])
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate()
+  const handleUser = (event) => setProducto({ ...producto, id: usuarioLogin.id, [event.target.name]: event.target.value })
 
-  const handleUser = (event) => setProducto({ ...producto, [event.target.name]: event.target.value })
-
-
+    | console.log(producto)
+  //Funcion para validar imputs
   const validarInput = (event) => {
     event.preventDefault();
     if (producto.nombre === "") {
@@ -21,6 +24,8 @@ const PublicarProducto = () => {
       return setError("Ingresa el precio del producto");
     } else if (producto.imagen === "") {
       return setError("Ingresa la imagen del producto");
+    } else if (!producto.categoria) {
+      return setError("Elija una categoria");
     } else if (producto.stock === "") {
       return setError("Ingresa la cantidad de productos");
     }
@@ -28,25 +33,33 @@ const PublicarProducto = () => {
       setError("");
       setSuccess("Producto publicado con exito!");
     }
-    const enviarDatosBack = async () => {
-      try {
-        const response = await fetch('http://localhost:3000/publicar', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(producto)
-        })
-        const respuestaBackend = await response.json();
-        console.log('Respuesta del backend:', respuestaBackend);
-      } catch (error) {
-        throw new Error('Hubo un problema al enviar los datos.');
-      }
-    }
-    enviarDatosBack()
-    window.alert('Producto publicado con exito 😀.')
-  };
+  
 
+  
+  const enviarDatosBack = async () => {
+    const token = window.sessionStorage.getItem('token');
+    try {
+      const response = await fetch('http://localhost:3000/publicar', {
+        method: 'POST',
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(producto)
+      })
+      const respuestaBackend = await response.json();
+      console.log('Respuesta del backend:', respuestaBackend);
+      window.alert('Producto publicado con exito 😀.')
+      navigate('/mis-publicaciones')
+    } catch (error) {
+      throw new Error('Hubo un problema al enviar los datos.');
+    }
+  }
+  enviarDatosBack()
+};
+
+  
+  
 
   console.log(producto)
   return (
