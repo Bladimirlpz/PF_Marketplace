@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import { Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import Alert from './Alerta';
@@ -41,11 +41,11 @@ export default function Login() {
           body: JSON.stringify(usuario)
         })
         const data = await response.json();
-        if(data.token){
-        console.log('Respuesta del backend:', data);
-        window.alert('Usuario identificado con éxito 😀.')
-        window.sessionStorage.setItem('token', data.token)
-        navigate('/perfil')
+        if (data.token) {
+          console.log('Respuesta del backend:', data);
+          window.alert('Usuario identificado con éxito 😀.')
+          window.sessionStorage.setItem('token', data.token)
+          navigate('/perfil')
         } else {
           window.alert('Email o contraseña invalida 🙁.')
         }
@@ -57,12 +57,6 @@ export default function Login() {
 
   };
 
-  /* useEffect(() => {
-    if (window.sessionStorage.getItem('token')) {
-      navigate('/perfil')
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []) */
   return (
     <div className="login">
       <h1>Login</h1>
