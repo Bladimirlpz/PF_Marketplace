@@ -14,7 +14,6 @@ const Registrarse = () => {
   const handleUser = (event) => setUser({ ...user, [event.target.name]: event.target.value })
 
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
 
   const validarInput = (event) => {
     event.preventDefault();
@@ -32,11 +31,9 @@ const Registrarse = () => {
       return setError("Correo Invalido");
     } else if (user.clave === "") {
       return setError("Ingresa una clave");
-    }
-
+    } 
     {
       setError("");
-      setSuccess("Registrado con exito!");
     }
 
     const enviarDatosBack = async () => {
@@ -49,14 +46,19 @@ const Registrarse = () => {
           body: JSON.stringify(user)
         })
         const respuestaBackend = await response.json();
+        if (respuestaBackend.message === "Email ya registrado") {
+          window.alert('El email existe inserte otro email.')
+        } else {
+          window.alert('Usuario registrado con éxito 😀.')
+          navigate('/login')
+        }
         console.log('Respuesta del backend:', respuestaBackend);
       } catch (error) {
         throw new Error('Hubo un problema al enviar los datos.');
       }
     }
     enviarDatosBack()
-    window.alert('Usuario registrado con éxito 😀.')
-    navigate('/perfil')
+
   };
 
   useEffect(() => {
@@ -108,7 +110,7 @@ const Registrarse = () => {
             value={user.contraseña}
             name="contraseña"
           />
-          <Alert error={error} success={success} />
+          <Alert error={error} />
           <h6>
             Ya tienes cuenta?
             <Link to="/login" className="links">Login</Link>
