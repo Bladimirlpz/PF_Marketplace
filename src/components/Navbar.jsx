@@ -6,19 +6,22 @@ import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { UsuarioLoginContext } from "../context/UsuarioLoginContext";
+import { CarritoContext } from "../context/CarritoContext";
 
 const BarraNav = () => {
   const navigate = useNavigate()
   const { usuarioLogin, setUsuarioLogin } = useContext(UsuarioLoginContext)
-  
+  const { carrito, clearCarrito } = useContext(CarritoContext)
+  console.log(carrito)
   const logout = () => {
-    setUsuarioLogin()
     window.sessionStorage.removeItem('token')
+    setUsuarioLogin([])
+    clearCarrito()
     navigate('/')
   }
 
   const isLogin = () => {
-    if (!usuarioLogin) {
+    if (usuarioLogin.length === 0) {
       return (
         <>
           <Link to="/login">
