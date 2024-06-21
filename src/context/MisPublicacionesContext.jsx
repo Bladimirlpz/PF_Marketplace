@@ -1,33 +1,15 @@
-import { useEffect, useState, createContext } from "react";
- 
-const url = "http://localhost:3000/"
-
+import { useState, createContext } from "react";
 export const MisPublicacionesContext = createContext()
 
 // eslint-disable-next-line react/prop-types
 function MisPublicacionesProvider({ children }) {
     const [apiMisPublicaciones, setApiMisPublicaciones] = useState([])
 
-    const apiInfo = async () => {
-        try {
-            const res = await fetch(url)
-            const data = await res.json()
-            setApiMisPublicaciones([data])
-        } catch (error) {
-            alert("Error Api");
-        }
-    }
-
-
-useEffect (()=> {
-    apiInfo()
-}, [])
-
-return (
-    <MisPublicacionesContext.Provider value={{apiMisPublicaciones, setApiMisPublicaciones}}>
-        {children}
-    </MisPublicacionesContext.Provider>
-)
+    return (
+        <MisPublicacionesContext.Provider value={{ apiMisPublicaciones, setApiMisPublicaciones }}>
+            {children}
+        </MisPublicacionesContext.Provider>
+    )
 }
 
 export default MisPublicacionesProvider
