@@ -1,33 +1,35 @@
 import { useContext, useEffect } from "react";
 import { MisPublicacionesContext } from "../context/MisPublicacionesContext";
 import { Link } from "react-router-dom";
-import { UsuarioLoginContext } from "../context/UsuarioLoginContext";
+
 
 const MisPublicaciones = () => {
   const { apiMisPublicaciones, setApiMisPublicaciones } = useContext(MisPublicacionesContext);
-  const { usuarioLogin } = useContext(UsuarioLoginContext)
   
-  useEffect(() => {
-    const dataPubliciones = async () => {
-      const token = window.sessionStorage.getItem('token');
-      try {
-        if (token) {
-          const response = await fetch("http://localhost:3000/mis-publicaciones", {
-            method: "GET",
-            headers: {
-              "Authorization": `Bearer ${token}`
-            },
-            body: JSON.stringify(usuarioLogin)
-          });
-          const data = await response.json();
-          setApiMisPublicaciones(data);
-        }
-      } catch (error) {
-        window.alert("Error de conexion");
+
+  const dataPublicaciones = async () => {
+    const token = window.sessionStorage.getItem('token');
+    try {
+      if (token) {
+        const response = await fetch("http://localhost:3000/mis-publicaciones", {
+          method: "GET",
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        const data = await response.json();
+
+        setApiMisPublicaciones(data);
       }
-    };
-    dataPubliciones();
+    } catch (error) {
+      window.alert("Error de conexion");
+    }
+  };
+  useEffect(() => {
+    dataPublicaciones();
+
   }, [])
+
 
   const EmptyPublicaciones = () => {
     return (
@@ -47,32 +49,51 @@ const MisPublicaciones = () => {
 
 
   const Publicaciones = () => {
-    return(
-    apiMisPublicaciones.length > 0
-      ? apiMisPublicaciones.map((ele) => {
+    return (
+      <div className="d-flex flex-wrap w-auto p-1">
+      {apiMisPublicaciones?.length > 0
+        ? apiMisPublicaciones.map((ele) => {
           return (
-            <div className="container my-5 py-2" key={ele.id}>
-              <div className="row">
-                <div className="col-md-6 col-sm-12 py-3">
-                  <img
-                    className="img-fluid"
-                    src={ele.image}
-                    alt={ele.title}
-                    width="400px"
-                    height="400px"
-                  />
+            <div
+              id={ele.id}
+              key={ele.id}
+              className="col-md-4 col-sm-6 col-xs-8 col-12 mb-4 p-3"
+            >
+              <div className="card text-center h-100" key={ele.id}>
+                <img
+                  className="card-img-top p-3"
+                  src={ele.imagen}
+                  alt="Card"
+                  height={300}
+                />
+                <div className="card-body">
+                  <h5 className="card-title">
+                    {ele.nombre_producto}...
+                  </h5>
+                  <p className="card-text">
+                    {ele.descripcion}...
+                  </p>
                 </div>
-                <div className="col-md-6 col-md-6 py-5">
-                  <h4 className="text-uppercase text-muted">{ele.category}</h4>
-                  <h1 className="display-5">{ele.title}</h1>
-                  <h3 className="display-6  my-4">${ele.price}</h3>
-                  <p className="lead">{ele.description}</p>
+                <ul className="list-group list-group-flush">
+                  <li className="list-group-item lead">
+                    $ {ele.precio}
+                  </li>
+                </ul>
+                <div className="card-body">
+                  <Link to={"/" + ele.id}>
+                    <button
+                      className="btn btn-dark m-1"
+                    >
+                      Detalle
+                    </button></Link>
                 </div>
               </div>
             </div>
           );
         })
-      : null);
+        : null};
+        </div>
+      )
   }
 
   return (
@@ -80,7 +101,7 @@ const MisPublicaciones = () => {
       <div className="container my-3 py-3">
         <h1 className="text-center">Mis Publicaciones</h1>
         <hr />
-        {usuarioLogin.length > 0 ? <Publicaciones /> : <EmptyPublicaciones />}
+        {apiMisPublicaciones.length > 0 ? <Publicaciones /> : <EmptyPublicaciones />}
       </div>
     </>
   );
