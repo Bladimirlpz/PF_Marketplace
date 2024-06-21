@@ -40,23 +40,29 @@ export default function Login() {
           },
           body: JSON.stringify(usuario)
         })
-        const respuestaBackend = await response.json();
-        console.log('Respuesta del backend:', respuestaBackend);
+        const data = await response.json();
+        if(data.token){
+        console.log('Respuesta del backend:', data);
+        window.alert('Usuario identificado con éxito 😀.')
+        window.sessionStorage.setItem('token', data.token)
+        navigate('/perfil')
+        } else {
+          window.alert('Email o contraseña invalida 🙁.')
+        }
       } catch (error) {
-        throw new Error('Hubo un problema al enviar los datos.');
+        window.alert('Error de conexion')
       }
     }
     enviarDatosBack()
-    navigate('/contacto')
 
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (window.sessionStorage.getItem('token')) {
-      navigate('/nosotros')
+      navigate('/perfil')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []) */
   return (
     <div className="login">
       <h1>Login</h1>
