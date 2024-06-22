@@ -1,0 +1,12 @@
+export { default as Home } from './Home';
+export { default as Login } from './Login';
+export { default as Alerta } from './Alerta';
+export { default as Carrito } from './Carrito';
+export { default as Contacto } from './Contacto';
+export { default as MiPerfil } from './MiPerfil';
+export { default as NotFound } from './NotFound';
+export { default as Nosotros } from './Nosotros';
+export { default as Registrarse } from './Registrarse';
+export { default as DetalleProducto } from './DetalleProducto';
+export { default as PublicarProducto } from './PublicarProducto';
+export { default as MisPublicaciones } from './MisPublicaciones';
