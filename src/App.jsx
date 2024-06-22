@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.min.css";
+
 import { Route, Routes } from "react-router-dom";
 import CarritoProvider from "./context/CarritoContext";
 import UsuarioProvider from "./context/UsuariosContext";
