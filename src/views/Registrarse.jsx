@@ -8,12 +8,11 @@ const Registrarse = () => {
   const validEmail = new RegExp(
     "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$"
   );
-
   const navigate = useNavigate()
   const [user, setUser] = useState([])
-  const handleUser = (event) => setUser({ ...user, [event.target.name]: event.target.value })
-
   const [error, setError] = useState("");
+  
+  const handleUser = (event) => setUser({ ...user, [event.target.name]: event.target.value })
 
   const validarInput = (event) => {
     event.preventDefault();
@@ -52,7 +51,6 @@ const Registrarse = () => {
           window.alert('Usuario registrado con éxito 😀.')
           navigate('/login')
         }
-        console.log('Respuesta del backend:', respuestaBackend);
       } catch (error) {
         throw new Error('Hubo un problema al enviar los datos.');
       }

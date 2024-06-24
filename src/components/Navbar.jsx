@@ -11,8 +11,8 @@ import { CarritoContext } from "../context/CarritoContext";
 const BarraNav = () => {
   const navigate = useNavigate();
   const { usuarioLogin, setUsuarioLogin } = useContext(UsuarioLoginContext);
-  const { carrito, clearCarrito } = useContext(CarritoContext);
-  console.log(carrito);
+  const { clearCarrito } = useContext(CarritoContext);
+  
   const logout = () => {
     window.sessionStorage.removeItem("token");
     setUsuarioLogin([]);
