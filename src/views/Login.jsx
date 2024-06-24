@@ -42,10 +42,10 @@ export default function Login() {
         })
         const data = await response.json();
         if (data.token) {
-          console.log('Respuesta del backend:', data);
           window.alert('Usuario identificado con éxito 😀.')
           window.sessionStorage.setItem('token', data.token)
           navigate('/perfil')
+          setUsuario('')
         } else {
           window.alert('Email o contraseña invalida 🙁.')
         }
