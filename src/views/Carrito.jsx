@@ -27,6 +27,7 @@ const Carrito = () => {
         console.log("Respuesta del backend:", respuestaBackend);
         window.alert("Pedido realizado con exito 😀.");
         setCarrito([]);
+        navigate('/')
       } catch (error) {
         throw new Error("Hubo un problema al enviar los datos.");
       }
