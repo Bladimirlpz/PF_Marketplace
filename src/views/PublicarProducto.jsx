@@ -13,7 +13,7 @@ const PublicarProducto = () => {
   const handleUser = (event) =>
     setProducto({
       ...producto,
-      id: usuarioLogin.id,
+      id: usuarioLogin[0].id,
       [event.target.name]: event.target.value,
     });
 
