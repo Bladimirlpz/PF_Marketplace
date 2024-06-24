@@ -2,10 +2,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { useCarrito } from "../hooks/useCarrito";
 import { FaRegMinusSquare } from "react-icons/fa";
 import { FaRegPlusSquare } from "react-icons/fa";
+import { useState } from "react";
 
 const Carrito = () => {
-  const { carrito, setCarrito, clearCarrito, addCarrito } = useCarrito();
+  const { carrito, clearCarrito, addCarrito } = useCarrito();
+  const [ carritoUser, setCarritoUser ] = useState(carrito)
   const navigate = useNavigate();
+  
   // Funcion para manejar el pago
   const handlerPagar = () => {
     // funcion para mandar carrito al backend
@@ -13,6 +16,7 @@ const Carrito = () => {
       const token = window.sessionStorage.getItem("token");
       if (!token) {
         navigate("/login");
+        return
       }
       try {
         const response = await fetch("http://localhost:3000/carrito", {
@@ -23,11 +27,9 @@ const Carrito = () => {
           },
           body: JSON.stringify(carrito),
         });
-        const respuestaBackend = await response.json();
-        console.log("Respuesta del backend:", respuestaBackend);
+        await response.json();
         window.alert("Pedido realizado con exito 😀.");
-        setCarrito([]);
-        navigate('/')
+        setCarritoUser([])
       } catch (error) {
         throw new Error("Hubo un problema al enviar los datos.");
       }
@@ -53,11 +55,11 @@ const Carrito = () => {
   const ShowCart = () => {
     let subtotal = 0;
     let totalItems = 0;
-    carrito.map((item) => {
+    carritoUser.map((item) => {
       return (subtotal += item.precio * item.cantidad);
     });
 
-    carrito.map((item) => {
+    carritoUser.map((item) => {
       return (totalItems += item.cantidad);
     });
     return (
@@ -71,7 +73,7 @@ const Carrito = () => {
                     <h5 className="mb-0">Item List</h5>
                   </div>
                   <div className="card-body">
-                    {carrito.map((item) => {
+                    {carritoUser.map((item) => {
                       return (
                         <div key={item.id}>
                           <div className="row d-flex align-items-center">
@@ -181,7 +183,7 @@ const Carrito = () => {
       <div className="container my-3 py-3">
         <h1 className="text-center">Carrito</h1>
         <hr />
-        {carrito.length > 0 ? <ShowCart /> : <EmptyCart />}
+        {carritoUser.length > 0 ? <ShowCart /> : <EmptyCart />}
       </div>
     </>
   );
