@@ -1,10 +1,38 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCarrito } from "../hooks/useCarrito";
 import { FaRegMinusSquare } from "react-icons/fa";
 import { FaRegPlusSquare } from "react-icons/fa";
 
 const Carrito = () => {
-  const { carrito, clearCarrito, addCarrito } = useCarrito();
+  const { carrito, setCarrito, clearCarrito, addCarrito } = useCarrito();
+  const navigate = useNavigate();
+  // Funcion para manejar el pago
+  const handlerPagar = () => {
+    // funcion para mandar carrito al backend
+    const enviarDatosBack = async () => {
+      const token = window.sessionStorage.getItem("token");
+      if (!token) {
+        navigate("/login");
+      }
+      try {
+        const response = await fetch("http://localhost:3000/carrito", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(carrito),
+        });
+        const respuestaBackend = await response.json();
+        console.log("Respuesta del backend:", respuestaBackend);
+        window.alert("Pedido realizado con exito 😀.");
+        setCarrito([]);
+      } catch (error) {
+        throw new Error("Hubo un problema al enviar los datos.");
+      }
+    };
+    enviarDatosBack();
+  };
 
   const EmptyCart = () => {
     return (
@@ -131,7 +159,10 @@ const Carrito = () => {
                       </li>
                     </ul>
 
-                    <button className="btn btn-dark btn-lg btn-block">
+                    <button
+                      className="btn btn-dark btn-lg btn-block"
+                      onClick={handlerPagar}
+                    >
                       Ir a pagar
                     </button>
                   </div>
