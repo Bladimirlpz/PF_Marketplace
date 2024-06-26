@@ -18,7 +18,7 @@ const MiPerfil = () => {
             }
           });
           const data = await response.json();
-          setUsuarioLogin(data[0]);
+          setUsuarioLogin(data);
         }
       } catch (error) {
         window.alert("Error de conexion");
