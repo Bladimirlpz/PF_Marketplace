@@ -1,6 +1,6 @@
 import { useEffect, useState, createContext } from "react";
- 
-const url = "http://localhost:3000/"
+import { ENDPOINT } from "../config/constans";
+
 
 export const ProductosContext = createContext()
 
@@ -10,7 +10,7 @@ function ProductosProvider({ children }) {
 
     const apiInfo = async () => {
         try {
-            const res = await fetch(url)
+            const res = await fetch(ENDPOINT.productos)
             const data = await res.json()
             setApiData(data)
         } catch (error) {

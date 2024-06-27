@@ -3,6 +3,7 @@ import { useCarrito } from "../hooks/useCarrito";
 import { FaRegMinusSquare } from "react-icons/fa";
 import { FaRegPlusSquare } from "react-icons/fa";
 import { useState } from "react";
+import { ENDPOINT } from "../config/constans";
 
 const Carrito = () => {
   const { carrito, clearCarrito, addCarrito } = useCarrito();
@@ -19,7 +20,7 @@ const Carrito = () => {
         return
       }
       try {
-        const response = await fetch("http://localhost:3000/carrito", {
+        const response = await fetch(ENDPOINT.cart, {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,

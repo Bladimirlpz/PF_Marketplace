@@ -2,17 +2,19 @@ import Alert from "./Alerta";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
+import { ENDPOINT } from "../config/constans";
 
 const Registrarse = () => {
   const validName = /^[a-zA-Z]+$/;
   const validEmail = new RegExp(
     "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$"
   );
-  const navigate = useNavigate()
-  const [user, setUser] = useState([])
+  const navigate = useNavigate();
+  const [user, setUser] = useState([]);
   const [error, setError] = useState("");
-  
-  const handleUser = (event) => setUser({ ...user, [event.target.name]: event.target.value })
+
+  const handleUser = (event) =>
+    setUser({ ...user, [event.target.name]: event.target.value });
 
   const validarInput = (event) => {
     event.preventDefault();
@@ -30,41 +32,40 @@ const Registrarse = () => {
       return setError("Correo Invalido");
     } else if (user.clave === "") {
       return setError("Ingresa una clave");
-    } 
+    }
     {
       setError("");
     }
 
     const enviarDatosBack = async () => {
       try {
-        const response = await fetch('http://localhost:3000/registrarse', {
-          method: 'POST',
+        const response = await fetch(ENDPOINT.registrase, {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify(user)
-        })
+          body: JSON.stringify(user),
+        });
         const respuestaBackend = await response.json();
         if (respuestaBackend.message === "Email ya registrado") {
-          window.alert('El email existe inserte otro email.')
+          window.alert("El email existe inserte otro email.");
         } else {
-          window.alert('Usuario registrado con éxito 😀.')
-          navigate('/login')
+          window.alert("Usuario registrado con éxito 😀.");
+          navigate("/login");
         }
       } catch (error) {
-        throw new Error('Hubo un problema al enviar los datos.');
+        throw new Error("Hubo un problema al enviar los datos.");
       }
-    }
-    enviarDatosBack()
-
+    };
+    enviarDatosBack();
   };
 
   useEffect(() => {
-    if (window.sessionStorage.getItem('token')) {
-      navigate('/miPerfil')
+    if (window.sessionStorage.getItem("token")) {
+      navigate("/miPerfil");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
   return (
     <div>
@@ -111,7 +112,9 @@ const Registrarse = () => {
           <Alert error={error} />
           <h6>
             Ya tienes cuenta?
-            <Link to="/login" className="links">Login</Link>
+            <Link to="/login" className="links">
+              Login
+            </Link>
           </h6>
           <Button
             type="submit"

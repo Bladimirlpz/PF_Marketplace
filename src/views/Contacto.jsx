@@ -3,6 +3,8 @@ import { Button } from "react-bootstrap";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
 import Alert from "./Alerta";
+import { ENDPOINT } from "../config/constans";
+
 const Contacto = () => {
   const [contacto, setContacto] = useState([]);
   const [success, setSuccess] = useState("");
@@ -31,7 +33,7 @@ const Contacto = () => {
 
     const enviarDatosBack = async () => {
       try {
-        const response = await fetch("http://localhost:3000/contacto", {
+        const response = await fetch(ENDPOINT.contacto, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

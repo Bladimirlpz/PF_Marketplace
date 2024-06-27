@@ -3,6 +3,7 @@ import { Button } from "react-bootstrap";
 import { useContext, useState } from "react";
 import { UsuarioLoginContext } from "../context/UsuarioLoginContext";
 import { useNavigate } from "react-router-dom";
+import { ENDPOINT } from "../config/constans";
 
 const PublicarProducto = () => {
   const { usuarioLogin } = useContext(UsuarioLoginContext);
@@ -13,10 +14,10 @@ const PublicarProducto = () => {
   const handleUser = (event) =>
     setProducto({
       ...producto,
-      id: usuarioLogin[0].id,
+      usuario_id: usuarioLogin.id,
       [event.target.name]: event.target.value,
     });
-
+  console.log(producto);
   //Funcion para validar imputs
   const validarInput = (event) => {
     event.preventDefault();
@@ -41,7 +42,7 @@ const PublicarProducto = () => {
     const enviarDatosBack = async () => {
       const token = window.sessionStorage.getItem("token");
       try {
-        const response = await fetch("http://localhost:3000/publicar", {
+        const response = await fetch(ENDPOINT.publicar, {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,

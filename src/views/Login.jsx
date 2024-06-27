@@ -1,8 +1,9 @@
-import { useState, useContext } from 'react';
-import { Button } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
-import Alert from './Alerta';
-import { UsuariosContext } from '../context/UsuariosContext';
+import { useState, useContext } from "react";
+import { Button } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
+import Alert from "./Alerta";
+import { UsuariosContext } from "../context/UsuariosContext";
+import { ENDPOINT } from "../config/constans";
 
 export default function Login() {
   const validEmail = new RegExp(
@@ -13,7 +14,8 @@ export default function Login() {
   const [error, setError] = useState("");
   const { usuario, setUsuario } = useContext(UsuariosContext);
 
-  const handleUser = (event) => setUsuario({ ...usuario, [event.target.name]: event.target.value })
+  const handleUser = (event) =>
+    setUsuario({ ...usuario, [event.target.name]: event.target.value });
 
   const validLogin = (event) => {
     event.preventDefault();
@@ -33,28 +35,27 @@ export default function Login() {
     }
     const enviarDatosBack = async () => {
       try {
-        const response = await fetch('http://localhost:3000/login', {
-          method: 'POST',
+        const response = await fetch(ENDPOINT.login, {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify(usuario)
-        })
+          body: JSON.stringify(usuario),
+        });
         const data = await response.json();
         if (data.token) {
-          window.alert('Usuario identificado con éxito 😀.')
-          window.sessionStorage.setItem('token', data.token)
-          navigate('/perfil')
-          setUsuario('')
+          window.alert("Usuario identificado con éxito 😀.");
+          window.sessionStorage.setItem("token", data.token);
+          navigate("/perfil");
+          setUsuario("");
         } else {
-          window.alert('Email o contraseña invalida 🙁.')
+          window.alert("Email o contraseña invalida 🙁.");
         }
       } catch (error) {
-        window.alert('Error de conexion')
+        window.alert("Error de conexion");
       }
-    }
-    enviarDatosBack()
-
+    };
+    enviarDatosBack();
   };
 
   return (
@@ -65,7 +66,7 @@ export default function Login() {
         <h5>Email</h5>
         <input
           type="text"
-          name='email'
+          name="email"
           placeholder="Ingresa tu email"
           onChange={handleUser}
           value={usuario.email}
@@ -73,7 +74,7 @@ export default function Login() {
         <h5>Contraseña</h5>
         <input
           type="password"
-          name='contraseña'
+          name="contraseña"
           placeholder="Ingresa tu contraseña"
           onChange={handleUser}
           value={usuario.contraseña}
