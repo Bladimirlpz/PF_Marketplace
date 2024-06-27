@@ -1,12 +1,12 @@
 import Alert from "./Alerta";
 import { Button } from "react-bootstrap";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UsuarioLoginContext } from "../context/UsuarioLoginContext";
 import { useNavigate } from "react-router-dom";
 import { ENDPOINT } from "../config/constans";
 
 const PublicarProducto = () => {
-  const { usuarioLogin } = useContext(UsuarioLoginContext);
+  const { usuarioLogin, setUsuarioLogin } = useContext(UsuarioLoginContext);
   const [producto, setProducto] = useState([]);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
@@ -17,7 +17,7 @@ const PublicarProducto = () => {
       usuario_id: usuarioLogin.id,
       [event.target.name]: event.target.value,
     });
-  console.log(producto);
+
   //Funcion para validar imputs
   const validarInput = (event) => {
     event.preventDefault();
@@ -61,6 +61,28 @@ const PublicarProducto = () => {
     enviarDatosBack();
   };
 
+  useEffect(() => {
+    const dataToken = async () => {
+      const token = window.sessionStorage.getItem("token");
+      try {
+        if (token) {
+          const response = await fetch(ENDPOINT.user, {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const data = await response.json();
+          setUsuarioLogin(data);
+        }
+      } catch (error) {
+        window.alert("Error de conexion");
+      }
+    };
+    dataToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div>
       <div className="publicacion">
@@ -93,7 +115,9 @@ const PublicarProducto = () => {
             onChange={handleUser}
             value={producto.categoria}
             name="categoria"
+            required
           >
+            <option selected disabled>Elija una categoria</option>
             <option>Hombre</option>
             <option>Mujer</option>
             <option>Electro</option>
