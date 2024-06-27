@@ -28,6 +28,7 @@ const MisPublicaciones = () => {
   };
   useEffect(() => {
     dataPublicaciones();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const EmptyPublicaciones = () => {
