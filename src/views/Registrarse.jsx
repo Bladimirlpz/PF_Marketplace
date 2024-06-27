@@ -5,12 +5,16 @@ import { useEffect, useState } from "react";
 import { ENDPOINT } from "../config/constans";
 
 const Registrarse = () => {
-  const validName = /^[a-zA-Z]+$/;
+  const validName = new RegExp(/^[a-zA-ZÀ-ÿ\u00f1\u00d1\u00E0-\u00FC]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1\u00E0-\u00FC]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/);
+  const validApellido = new RegExp(/^[a-zA-ZÀ-ÿ\u00f1\u00d1\u00E0-\u00FC]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1\u00E0-\u00FC]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/);
   const validEmail = new RegExp(
     "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$"
   );
   const navigate = useNavigate();
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState({
+    nombre: "",
+    apellido: "",
+  });
   const [error, setError] = useState("");
 
   const handleUser = (event) =>
@@ -24,7 +28,7 @@ const Registrarse = () => {
       return setError("Nombre invalido");
     } else if (user.apellido === "") {
       return setError("Debes ingresar un apellido");
-    } else if (!validName.test(user.apellido)) {
+    } else if (!validApellido.test(user.apellido)) {
       return setError("Apellido invalido");
     } else if (user.email === "") {
       return setError("Ingresa un correo");
