@@ -4,15 +4,38 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UsuarioLoginContext } from "../context/UsuarioLoginContext";
 import { CarritoContext } from "../context/CarritoContext";
+import { ENDPOINT } from "../config/constans";
 
 const BarraNav = () => {
   const navigate = useNavigate();
   const { usuarioLogin, setUsuarioLogin } = useContext(UsuarioLoginContext);
   const { clearCarrito } = useContext(CarritoContext);
   
+  useEffect(() => {
+    const dataToken = async () => {
+      const token = window.sessionStorage.getItem("token");
+      try {
+        if (token) {
+          const response = await fetch(ENDPOINT.user, {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const data = await response.json();
+          setUsuarioLogin(data);
+        }
+      } catch (error) {
+        window.alert("Error de conexion");
+      }
+    };
+    dataToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const logout = () => {
     window.sessionStorage.removeItem("token");
     setUsuarioLogin([]);
