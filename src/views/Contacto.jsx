@@ -106,7 +106,7 @@ const Contacto = () => {
           variant="btn btn-outline-dark"
           onSubmit={validarInput}
         >
-          Publicar
+          Enviar
         </Button>
       </form>
     </div>
