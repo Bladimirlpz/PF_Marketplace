@@ -44,6 +44,7 @@ function App() {
                   <Route path="/:id" element={<DetalleProducto />} />
                   <Route path="/perfil" element={<MiPerfil />} />
                   <Route path="/publicar" element={<PublicarProducto />} />
+                  <Route path="/notFound" element={<NotFound />} />
                   <Route
                     path="/mis-publicaciones"
                     element={<MisPublicaciones />}

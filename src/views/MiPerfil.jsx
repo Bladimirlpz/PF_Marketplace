@@ -1,12 +1,13 @@
 import { useContext, useEffect } from "react";
 import { Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UsuarioLoginContext } from "../context/UsuarioLoginContext";
 import { ENDPOINT } from "../config/constans";
 
+
 const MiPerfil = () => {
   const { usuarioLogin, setUsuarioLogin } = useContext(UsuarioLoginContext);
-
+  const navigate = useNavigate()
   useEffect(() => {
     const dataToken = async () => {
       const token = window.sessionStorage.getItem("token");
@@ -20,6 +21,8 @@ const MiPerfil = () => {
           });
           const data = await response.json();
           setUsuarioLogin(data);
+        } else {
+          navigate("/notFound")
         }
       } catch (error) {
         window.alert("Error de conexion");
