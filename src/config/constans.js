@@ -6,7 +6,7 @@ export const ENDPOINT = {
   productos: `${URLBASE}/`,
   cart: `${URLBASE}/carrito`,
   contacto: `${URLBASE}/contacto`,
-  user: `${URLBASE}/usuario`,
+  user: `${URLBASE}/perfil`,
   misPublicaciones: `${URLBASE}/mis-publicaciones`,
   publicar: `${URLBASE}/publicar`
 }
