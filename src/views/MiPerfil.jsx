@@ -3,11 +3,11 @@ import { Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { UsuarioLoginContext } from "../context/UsuarioLoginContext";
 import { ENDPOINT } from "../config/constans";
-
+import "../assets/css/perfil.css";
 
 const MiPerfil = () => {
   const { usuarioLogin, setUsuarioLogin } = useContext(UsuarioLoginContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   useEffect(() => {
     const dataToken = async () => {
       const token = window.sessionStorage.getItem("token");
@@ -22,7 +22,7 @@ const MiPerfil = () => {
           const data = await response.json();
           setUsuarioLogin(data);
         } else {
-          navigate("/notFound")
+          navigate("/notFound");
         }
       } catch (error) {
         window.alert("Error de conexion");
@@ -34,26 +34,25 @@ const MiPerfil = () => {
 
   return (
     <div className="mi-perfil">
-      <h1>Perfil de {usuarioLogin?.nombre}</h1>
-      <h5>Nombre: {usuarioLogin?.nombre}</h5>
-      <h5>Apellido: {usuarioLogin?.apellido}</h5>
-      <h5>Email: {usuarioLogin?.email}</h5>
+      <h1>Perfil de Usuario</h1>
       <div className="titulo-usuario">
-        <h1>Perfil de Usuario</h1>
-        <hr />
-        <div className="info">
-          <div className="buttons">
-            <Link to="/mis-publicaciones">
-              <Button variant="btn btn-outline-light w-100">
-                Mis Publicaciones
-              </Button>
-            </Link>
-            <Link to="/publicar">
-              <Button variant="btn btn-outline-light w-100">
-                Publicar productos
-              </Button>
-            </Link>
-          </div>
+        <div className="datos-usuario">
+          <h1>Datos de Usuario</h1>
+          <h5>Nombre: {usuarioLogin?.nombre}</h5>
+          <h5>Apellido: {usuarioLogin?.apellido}</h5>
+          <h5>Email: {usuarioLogin?.email}</h5>
+        </div>
+        <div className="buttons">
+          <Link to="/mis-publicaciones">
+            <Button variant="btn btn-outline-light">
+              Mis Publicaciones
+            </Button>
+          </Link>
+          <Link to="/publicar">
+            <Button variant="btn btn-outline-light">
+              Publicar productos
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

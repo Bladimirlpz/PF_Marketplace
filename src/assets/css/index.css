@@ -97,27 +97,7 @@ select{
     text-decoration: none;
     color: green;
 }
-.mi-perfil{
-    width: 100%;
-    min-height: 85vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-image: url(../img/main.png.jpg);
-    background-size:cover;
-}
-.mi-perfil hr{
-    width: 90%;
-    margin: 5%;
-}
-.mi-perfil h1{
-    width: 100%;
-}
-.mi-perfil .titulo-usuario{
-    display: flex;
-    align-items: baseline;
-}
+
 .titulo-usuario{
     width: 100%;
     color: white;
@@ -145,4 +125,11 @@ select{
 .buttons{
     display: flex;
     align-items: center;
+}
+
+.hero .card-img {
+    height: 500px;
+    background-size: cover;
+    color: black;
+    font-size: 50px;
 }
