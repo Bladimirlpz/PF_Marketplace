@@ -74,6 +74,8 @@ const PublicarProducto = () => {
           });
           const data = await response.json();
           setUsuarioLogin(data);
+        } else {
+          navigate("/notFound")
         }
       } catch (error) {
         window.alert("Error de conexion");

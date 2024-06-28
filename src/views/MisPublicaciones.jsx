@@ -1,12 +1,13 @@
 import { useContext, useEffect } from "react";
 import { MisPublicacionesContext } from "../context/MisPublicacionesContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ENDPOINT } from "../config/constans";
 
 const MisPublicaciones = () => {
   const { apiMisPublicaciones, setApiMisPublicaciones } = useContext(
     MisPublicacionesContext
   );
+  const navigate = useNavigate()
 
   const dataPublicaciones = async () => {
     const token = window.sessionStorage.getItem("token");
@@ -21,6 +22,8 @@ const MisPublicaciones = () => {
         const data = await response.json();
 
         setApiMisPublicaciones(data);
+      } else {
+        navigate("/notFound")
       }
     } catch (error) {
       window.alert("Error de conexion");
