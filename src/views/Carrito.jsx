@@ -2,12 +2,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useCarrito } from "../hooks/useCarrito";
 import { FaRegMinusSquare } from "react-icons/fa";
 import { FaRegPlusSquare } from "react-icons/fa";
-import { useState } from "react";
 import { ENDPOINT } from "../config/constans";
 
 const Carrito = () => {
-  const { carrito, clearCarrito, addCarrito } = useCarrito();
-  const [ carritoUser, setCarritoUser ] = useState(carrito)
+  const { carrito, setCarrito, clearCarrito, addCarrito } = useCarrito();
   const navigate = useNavigate();
   
   // Funcion para manejar el pago
@@ -30,7 +28,7 @@ const Carrito = () => {
         });
         await response.json();
         window.alert("Pedido realizado con exito 😀.");
-        setCarritoUser([])
+        setCarrito([])
       } catch (error) {
         throw new Error("Hubo un problema al enviar los datos.");
       }
@@ -56,11 +54,11 @@ const Carrito = () => {
   const ShowCart = () => {
     let subtotal = 0;
     let totalItems = 0;
-    carritoUser.map((item) => {
+    carrito.map((item) => {
       return (subtotal += item.precio * item.cantidad);
     });
 
-    carritoUser.map((item) => {
+    carrito.map((item) => {
       return (totalItems += item.cantidad);
     });
     return (
@@ -74,7 +72,7 @@ const Carrito = () => {
                     <h5 className="mb-0">Item List</h5>
                   </div>
                   <div className="card-body">
-                    {carritoUser.map((item) => {
+                    {carrito.map((item) => {
                       return (
                         <div key={item.id}>
                           <div className="row d-flex align-items-center">
@@ -184,7 +182,7 @@ const Carrito = () => {
       <div className="container my-3 py-3">
         <h1 className="text-center">Carrito</h1>
         <hr />
-        {carritoUser.length > 0 ? <ShowCart /> : <EmptyCart />}
+        {carrito.length > 0 ? <ShowCart /> : <EmptyCart />}
       </div>
     </>
   );
