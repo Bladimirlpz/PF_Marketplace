@@ -1,5 +1,6 @@
 .container{
-    margin: 0 80px
+    margin: 0 80px;
+    backdrop-filter: blur(20px);
 }
 .filtros{
     display: flex;

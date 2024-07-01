@@ -89,7 +89,7 @@ const BarraNav = () => {
     <Navbar expand="lg" className="bg-body-tertiary text-center container ">
       <Container fluid>
         <Link to="/" className="text-decoration-none">
-          <Navbar.Brand>Market Place</Navbar.Brand>
+          <Navbar.Brand>Shop-Line</Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
