@@ -24,19 +24,13 @@ function CarritoProvider({ children }) {
     ]);
   };
   const clearCarrito = (product) => {
-    // Encontrar el índice del producto en el carrito
     const index = carrito.findIndex((prod) => prod.id === product.id);
     const currentCantidad = carrito[index].cantidad;
 
     if (currentCantidad === 1) {
-
-      // Si la cantidad a eliminar es mayor o igual a la cantidad actual del producto
-
-      // Eliminar completamente el producto del carrito
       const newCarrito = carrito.filter((prod) => prod.id !== product.id);
       setCarrito(newCarrito);
     } else {
-      // Reducir la cantidad del producto en el carrito
       const newCarrito = structuredClone(carrito);
       newCarrito[index].cantidad -= 1;
       setCarrito(newCarrito);
