@@ -46,7 +46,7 @@ const BarraNav = () => {
   const isLogin = () => {
     if (usuarioLogin.length === 0) {
       return (
-        <>
+        <div className="button-scroll">
           <Link to="/login">
             <Button variant="outline-dark m-2">
               <i className="fa fa-sign-in-alt mr-1"></i>Login
@@ -62,7 +62,7 @@ const BarraNav = () => {
               <i className="fa fa-cart-shopping mr-1"></i>Carrito
             </Button>
           </Link>
-        </>
+        </div>
       );
     }
     return (
@@ -86,7 +86,7 @@ const BarraNav = () => {
     );
   };
   return (
-    <Navbar expand="lg" className="bg-body-tertiary text-center container ">
+    <Navbar expand="lg" className="navbar bg-body-tertiary text-center ">
       <Container fluid>
         <Link to="/" className="text-decoration-none">
           <Navbar.Brand>Shop-Line</Navbar.Brand>
@@ -107,7 +107,7 @@ const BarraNav = () => {
               <Button className="btn btn-light">Contacto</Button>
             </Link>
           </Nav>
-          <div className="buttons text-center d-flex flex-row">{isLogin()}</div>
+          <div className="buttons-scroll text-center d-flex flex-row">{isLogin()}</div>
         </Navbar.Collapse>
       </Container>
     </Navbar>

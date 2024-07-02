@@ -34,26 +34,26 @@ const MiPerfil = () => {
 
   return (
     <div className="mi-perfil">
-      <h1>Perfil de Usuario</h1>
+      <h1>Perfil de {usuarioLogin?.nombre}</h1>
       <div className="titulo-usuario">
-        <div className="datos-usuario">
+        <div className="datos-usuario mt-3">
           <h1>Datos de Usuario</h1>
           <h5>Nombre: {usuarioLogin?.nombre}</h5>
           <h5>Apellido: {usuarioLogin?.apellido}</h5>
           <h5>Email: {usuarioLogin?.email}</h5>
         </div>
-        <div className="buttons">
-          <Link to="/mis-publicaciones">
-            <Button variant="btn btn-outline-light">
-              Mis Publicaciones
-            </Button>
-          </Link>
-          <Link to="/publicar">
-            <Button variant="btn btn-outline-light">
-              Publicar productos
-            </Button>
-          </Link>
-        </div>
+      </div>
+      <div className="buttons">
+        <Link to="/mis-publicaciones" className="link">
+          <Button variant="btn m-2 btn-outline-light" className="button">
+            Mis Publicaciones
+          </Button>
+        </Link>
+        <Link to="/publicar" className="link">
+          <Button variant="btn m-2 btn-outline-light" className="button">
+            Publicar productos
+          </Button>
+        </Link>
       </div>
     </div>
   );
