@@ -42,6 +42,7 @@ export default function Login() {
           },
           body: JSON.stringify(usuario),
         });
+        console.log(usuario)
         const data = await response.json();
         if (data.token) {
           window.alert("Usuario identificado con éxito 😀.");
@@ -74,7 +75,7 @@ export default function Login() {
         <h5>Contraseña</h5>
         <input
           type="password"
-          name="contraseña"
+          name="contrasena"
           placeholder="Ingresa tu contraseña"
           onChange={handleUser}
           value={usuario.contraseña}
