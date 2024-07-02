@@ -53,8 +53,7 @@ const Contacto = () => {
 
   return (
     <div
-      style={{ width: "100%", height: "55vw" }}
-      className="d-flex flex-column align-items-center pt-5 pb-5 "
+    className="contacto"
     >
       <h3>CONTACTANOS</h3>
       <form onSubmit={validarInput} className="publicacion">
@@ -62,7 +61,6 @@ const Contacto = () => {
           controlId="floatingTextarea"
           label="Nombre"
           className="mb-3"
-          style={{ width: "50%" }}
           value={contacto.nombre}
           onChange={handleUser}
         >
@@ -76,7 +74,6 @@ const Contacto = () => {
           controlId="floatingInput"
           label="Correo Electronico"
           className="mb-3"
-          style={{ width: "50%" }}
           value={contacto.email}
           onChange={handleUser}
         >
@@ -89,14 +86,12 @@ const Contacto = () => {
         <FloatingLabel
           controlId="floatingTextarea2"
           label="Deja tu mesaje aqui"
-          style={{ width: "50%" }}
           value={contacto.mensaje}
           onChange={handleUser}
         >
           <Form.Control
             as="textarea"
             placeholder="Deja tu mesaje aqui"
-            style={{ height: "150px" }}
             name="mensaje"
           />
         </FloatingLabel>
