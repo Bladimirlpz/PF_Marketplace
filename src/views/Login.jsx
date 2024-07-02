@@ -42,7 +42,6 @@ export default function Login() {
           },
           body: JSON.stringify(usuario),
         });
-        console.log(usuario)
         const data = await response.json();
         if (data.token) {
           window.alert("Usuario identificado con éxito 😀.");
