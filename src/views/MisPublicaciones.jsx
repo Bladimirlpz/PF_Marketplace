@@ -7,7 +7,7 @@ const MisPublicaciones = () => {
   const { apiMisPublicaciones, setApiMisPublicaciones } = useContext(
     MisPublicacionesContext
   );
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const dataPublicaciones = async () => {
     const token = window.sessionStorage.getItem("token");
@@ -20,19 +20,40 @@ const MisPublicaciones = () => {
           },
         });
         const data = await response.json();
-
         setApiMisPublicaciones(data);
       } else {
-        navigate("/notFound")
+        navigate("/notFound");
       }
     } catch (error) {
       window.alert("Error de conexion");
     }
   };
+
   useEffect(() => {
     dataPublicaciones();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const handleEliminar = async (id) => {
+    const token = window.sessionStorage.getItem("token");
+    try {
+      const response = await fetch(`${ENDPOINT.misPublicaciones}/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        window.alert("Publicación eliminada con éxito.");
+        await dataPublicaciones();
+      } else {
+        window.alert("No se pudo eliminar la publicación");
+      }
+    } catch (error) {
+      window.alert("Error de conexion");
+    }
+  };
 
   const EmptyPublicaciones = () => {
     return (
@@ -40,7 +61,7 @@ const MisPublicaciones = () => {
         <div className="row">
           <div className="col-md-12 py-5 bg-light text-center">
             <h4 className="p-3 display-5">No tienes publicaciones</h4>
-            <Link to="/perfil" className="btn  btn-outline-dark mx-4">
+            <Link to="/perfil" className="btn btn-outline-dark mx-4">
               <i className="fa fa-arrow-left"></i> Mi Perfil
             </Link>
           </div>
@@ -60,7 +81,7 @@ const MisPublicaciones = () => {
                   key={ele.id}
                   className="col-md-4 col-sm-6 col-xs-8 col-12 mb-4 p-3"
                 >
-                  <div className="card text-center h-100" key={ele.id}>
+                  <div className="card text-center h-100">
                     <img
                       className="card-img-top p-3"
                       src={ele.imagen}
@@ -78,13 +99,18 @@ const MisPublicaciones = () => {
                       <Link to={"/" + ele.id}>
                         <button className="btn btn-dark m-1">Detalle</button>
                       </Link>
+                      <button
+                        className="btn btn-dark m-1"
+                        onClick={() => handleEliminar(ele.id)}
+                      >
+                        Eliminar
+                      </button>
                     </div>
                   </div>
                 </div>
               );
             })
           : null}
-        ;
       </div>
     );
   };

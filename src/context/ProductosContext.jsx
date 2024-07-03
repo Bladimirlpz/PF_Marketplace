@@ -18,15 +18,15 @@ function ProductosProvider({ children }) {
         }
     }
 
-useEffect (()=> {
-    apiInfo()
-}, [])
+  useEffect(() => {
+    apiInfo();
+  }, []);
 
-return (
-    <ProductosContext.Provider value={{apiData, setApiData}}>
-        {children}
+  return (
+    <ProductosContext.Provider value={{ apiData, setApiData }}>
+      {children}
     </ProductosContext.Provider>
-)
+  );
 }
 
-export default ProductosProvider
+export default ProductosProvider;
