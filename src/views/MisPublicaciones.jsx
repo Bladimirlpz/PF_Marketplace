@@ -1,6 +1,7 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MisPublicacionesContext } from "../context/MisPublicacionesContext";
 import { Link, useNavigate } from "react-router-dom";
+import { Modal, Button, Toast, ToastContainer } from "react-bootstrap";
 import { ENDPOINT } from "../config/constans";
 
 const MisPublicaciones = () => {
@@ -8,6 +9,10 @@ const MisPublicaciones = () => {
     MisPublicacionesContext
   );
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
 
   const dataPublicaciones = async () => {
     const token = window.sessionStorage.getItem("token");
@@ -25,7 +30,8 @@ const MisPublicaciones = () => {
         navigate("/notFound");
       }
     } catch (error) {
-      window.alert("Error de conexion");
+      setToastMessage("Error de conexion");
+      setShowToast(true);
     }
   };
 
@@ -34,25 +40,42 @@ const MisPublicaciones = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleEliminar = async (id) => {
+  const handleEliminar = async () => {
     const token = window.sessionStorage.getItem("token");
     try {
-      const response = await fetch(`${ENDPOINT.misPublicaciones}/${id}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `${ENDPOINT.misPublicaciones}/${selectedId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (response.ok) {
-        window.alert("Publicación eliminada con éxito.");
+        setToastMessage("Publicación eliminada con éxito.");
         await dataPublicaciones();
       } else {
-        window.alert("No se pudo eliminar la publicación");
+        setToastMessage("No se pudo eliminar la publicación");
       }
     } catch (error) {
-      window.alert("Error de conexion");
+      setToastMessage("Error de conexion");
+    } finally {
+      setShowModal(false);
+      setSelectedId(null);
+      setShowToast(true);
     }
+  };
+
+  const handleShowModal = (id) => {
+    setSelectedId(id);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedId(null);
   };
 
   const EmptyPublicaciones = () => {
@@ -101,7 +124,7 @@ const MisPublicaciones = () => {
                       </Link>
                       <button
                         className="btn btn-dark m-1"
-                        onClick={() => handleEliminar(ele.id)}
+                        onClick={() => handleShowModal(ele.id)}
                       >
                         Eliminar
                       </button>
@@ -126,6 +149,37 @@ const MisPublicaciones = () => {
           <EmptyPublicaciones />
         )}
       </div>
+
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmar Eliminación</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          ¿Estás seguro de que deseas eliminar esta publicación?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Cancelar
+          </Button>
+          <Button variant="danger" onClick={handleEliminar}>
+            Eliminar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <ToastContainer position="bottom-end" className="p-3">
+        <Toast
+          onClose={() => setShowToast(false)}
+          show={showToast}
+          delay={3000}
+          autohide
+        >
+          <Toast.Header>
+            <strong className="me-auto">Notificación</strong>
+          </Toast.Header>
+          <Toast.Body>{toastMessage}</Toast.Body>
+        </Toast>
+      </ToastContainer>
     </>
   );
 };

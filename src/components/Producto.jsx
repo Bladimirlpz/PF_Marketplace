@@ -1,28 +1,24 @@
 import { useContext, useState, useEffect } from "react";
 import { ProductosContext } from "../context/ProductosContext.jsx";
 import Button from "react-bootstrap/Button";
-import { useCarrito } from "../hooks/useCarrito.js"
+import { useCarrito } from "../hooks/useCarrito.js";
 import { Link } from "react-router-dom";
-
 
 const Producto = () => {
   const { apiData } = useContext(ProductosContext);
   const [filtros, setFiltros] = useState(apiData);
-  const { addCarrito } = useCarrito()
+  const { addCarrito } = useCarrito();
 
   const filterProduct = (cat) => {
     const updatedList = apiData.filter((item) => item.categoria === cat);
     setFiltros(updatedList);
   };
-  
-  //Agregar productos al carrito
+
   useEffect(() => {
-    
-      if (apiData.length > 0) {  
-        setFiltros(apiData); 
-      }
+    if (apiData.length > 0) {
+      setFiltros(apiData);
     }
-  , [apiData]);
+  }, [apiData]);
 
   return (
     <div>
@@ -76,23 +72,21 @@ const Producto = () => {
                       <h5 className="card-title">
                         {product.nombre_producto}...
                       </h5>
-                      <p className="card-text">
-                        {product.descripcion}...
-                      </p>
+                      <p className="card-text">{product.descripcion}...</p>
                     </div>
                     <ul className="list-group list-group-flush">
                       <li className="list-group-item lead">
-                        $ {product.precio}
+                        ${product.precio.toLocaleString("es-CL")}
                       </li>
                     </ul>
                     <div className="card-body">
                       <Link to={"/" + product.id}>
+                        <button className="btn btn-dark m-1">Detalle</button>
+                      </Link>
                       <button
                         className="btn btn-dark m-1"
+                        onClick={() => addCarrito(product)}
                       >
-                        Detalle
-                      </button></Link>
-                      <button className="btn btn-dark m-1" onClick={()=>addCarrito(product)}>
                         Agregar al carrito
                       </button>
                     </div>

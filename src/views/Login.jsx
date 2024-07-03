@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import Alert from "./Alerta";
 import { UsuariosContext } from "../context/UsuariosContext";
@@ -12,6 +12,9 @@ export default function Login() {
 
   const navigate = useNavigate();
   const [error, setError] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalVariant, setModalVariant] = useState("");
   const { usuario, setUsuario } = useContext(UsuariosContext);
 
   const handleUser = (event) =>
@@ -29,7 +32,8 @@ export default function Login() {
       setError("Correo inválido");
       return;
     }
-    if (usuario.contraseña === "") {
+    if (usuario.contrasena === "") {
+      // Cambio aquí para asegurarse de que coincide con el nombre del campo en el estado
       setError("Ingresa tu contraseña");
       return;
     }
@@ -44,15 +48,24 @@ export default function Login() {
         });
         const data = await response.json();
         if (data.token) {
-          window.alert("Usuario identificado con éxito 😀.");
+          setModalMessage("Usuario identificado con éxito 😀.");
+          setModalVariant("success");
+          setShowModal(true);
           window.sessionStorage.setItem("token", data.token);
-          navigate("/perfil");
-          setUsuario("");
+          setTimeout(() => {
+            navigate("/perfil");
+            setUsuario({ email: "", contrasena: "" });
+            setShowModal(false);
+          }, 3000);
         } else {
-          window.alert("Email o contraseña invalida 🙁.");
+          setModalMessage("Email o contraseña inválida 🙁.");
+          setModalVariant("danger");
+          setShowModal(true);
         }
       } catch (error) {
-        window.alert("Error de conexion");
+        setModalMessage("Error de conexión");
+        setModalVariant("danger");
+        setShowModal(true);
       }
     };
     enviarDatosBack();
@@ -74,10 +87,10 @@ export default function Login() {
         <h5>Contraseña</h5>
         <input
           type="password"
-          name="contrasena"
+          name="contrasena" // Cambio aquí para asegurarse de que coincide con el nombre del campo en el estado
           placeholder="Ingresa tu contraseña"
           onChange={handleUser}
-          value={usuario.contraseña}
+          value={usuario.contrasena} // Cambio aquí para asegurarse de que coincide con el nombre del campo en el estado
         />
         {error && <Alert error={error} />}
         <Button type="submit" variant="outline-dark" className="mt-3">
@@ -90,6 +103,15 @@ export default function Login() {
           Regístrate
         </Link>
       </h6>
+
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            {modalVariant === "success" ? "Éxito" : "Error"}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{modalMessage}</Modal.Body>
+      </Modal>
     </div>
   );
 }
