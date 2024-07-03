@@ -1,11 +1,12 @@
 import { createContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const CarritoContext = createContext();
 
 // eslint-disable-next-line react/prop-types
 function CarritoProvider({ children }) {
   const [carrito, setCarrito] = useState([]);
-
+  const navigate = useNavigate();
   const addCarrito = (product) => {
     // revisamos si esta el producto en el carro
     const productoEnCarrito = carrito.findIndex(
@@ -22,6 +23,7 @@ function CarritoProvider({ children }) {
       ...estadoPrevio,
       { ...product, cantidad: 1 },
     ]);
+    navigate("/carrito");
   };
   const clearCarrito = (product) => {
     const index = carrito.findIndex((prod) => prod.id === product.id);
