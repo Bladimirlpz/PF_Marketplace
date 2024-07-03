@@ -57,7 +57,7 @@ const Contacto = () => {
   return (
     <div className="contacto">
       <h3>CONTACTANOS</h3>
-      <form onSubmit={validarInput} className="publicacion">
+      <form onSubmit={validarInput} className="publicacion contactanos">
         <FloatingLabel
           controlId="floatingTextarea"
           label="Nombre"

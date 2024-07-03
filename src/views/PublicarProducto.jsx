@@ -1,16 +1,26 @@
-import Alert from "./Alerta";
-import { Button } from "react-bootstrap";
-import { useContext, useEffect, useState } from "react";
-import { UsuarioLoginContext } from "../context/UsuarioLoginContext";
+import { useState, useContext, useEffect } from "react";
+import { Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import Alert from "./Alerta";
+import { UsuarioLoginContext } from "../context/UsuarioLoginContext";
 import { ENDPOINT } from "../config/constans";
 
 const PublicarProducto = () => {
   const { usuarioLogin, setUsuarioLogin } = useContext(UsuarioLoginContext);
-  const [producto, setProducto] = useState([]);
+  const [producto, setProducto] = useState({
+    nombre: "",
+    descripcion: "",
+    categoria: "",
+    precio: "",
+    imagen: "",
+    stock: "",
+  });
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   const navigate = useNavigate();
+
   const handleUser = (event) =>
     setProducto({
       ...producto,
@@ -18,26 +28,24 @@ const PublicarProducto = () => {
       [event.target.name]: event.target.value,
     });
 
-  //Funcion para validar imputs
+  // Función para validar inputs
   const validarInput = (event) => {
     event.preventDefault();
     if (producto.nombre === "") {
       return setError("Debes ingresar un nombre del producto");
     } else if (producto.descripcion === "") {
-      return setError("Debes ingresar una descripcion del producto");
+      return setError("Debes ingresar una descripción del producto");
     } else if (producto.precio === "") {
       return setError("Ingresa el precio del producto");
     } else if (producto.imagen === "") {
       return setError("Ingresa la imagen del producto");
     } else if (!producto.categoria) {
-      return setError("Elija una categoria");
+      return setError("Elija una categoría");
     } else if (producto.stock === "") {
       return setError("Ingresa la cantidad de productos");
     }
-    {
-      setError("");
-      setSuccess("Producto publicado con exito!");
-    }
+    setError("");
+    setSuccess("Producto publicado con éxito!");
 
     const enviarDatosBack = async () => {
       const token = window.sessionStorage.getItem("token");
@@ -52,10 +60,16 @@ const PublicarProducto = () => {
         });
         const respuestaBackend = await response.json();
         console.log("Respuesta del backend:", respuestaBackend);
-        window.alert("Producto publicado con exito 😀.");
-        navigate("/mis-publicaciones");
+        if (response.ok) {
+          setModalMessage("Producto publicado con éxito 😀.");
+          setShowModal(true);
+        } else {
+          setModalMessage("Error al publicar el producto 🙁.");
+          setShowModal(true);
+        }
       } catch (error) {
-        throw new Error("Hubo un problema al enviar los datos.");
+        setModalMessage("Hubo un problema al enviar los datos.");
+        setShowModal(true);
       }
     };
     enviarDatosBack();
@@ -75,15 +89,20 @@ const PublicarProducto = () => {
           const data = await response.json();
           setUsuarioLogin(data);
         } else {
-          navigate("/notFound")
+          navigate("/notFound");
         }
       } catch (error) {
-        window.alert("Error de conexion");
+        setModalMessage("Error de conexión");
+        setShowModal(true);
       }
     };
     dataToken();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [navigate, setUsuarioLogin]);
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    navigate("/mis-publicaciones");
+  };
 
   return (
     <div>
@@ -110,7 +129,7 @@ const PublicarProducto = () => {
             name="descripcion"
             value={producto.descripcion}
           />
-          <h5>Categoria</h5>
+          <h5>Categoría</h5>
           <select
             className="select"
             type="text"
@@ -119,7 +138,9 @@ const PublicarProducto = () => {
             name="categoria"
             required
           >
-            <option selected disabled>Elija una categoria</option>
+            <option selected disabled>
+              Elija una categoría
+            </option>
             <option>Hombre</option>
             <option>Mujer</option>
             <option>Electro</option>
@@ -137,7 +158,7 @@ const PublicarProducto = () => {
           <h5>Imagen</h5>
           <input
             className="inputs"
-            type="img"
+            type="text"
             placeholder="URL imagen"
             onChange={handleUser}
             name="imagen"
@@ -154,15 +175,23 @@ const PublicarProducto = () => {
           />
           <Alert error={error} success={success} />
 
-          <Button
-            type="submit"
-            variant="btn btn-outline-dark"
-            onSubmit={validarInput}
-          >
+          <Button type="submit" variant="btn btn-outline-dark">
             Publicar
           </Button>
         </form>
       </div>
+
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>{success ? "Éxito" : "Error"}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{modalMessage}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleCloseModal}>
+            Aceptar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
