@@ -6,7 +6,11 @@ import Alert from "./Alerta";
 import { ENDPOINT } from "../config/constans";
 
 const Contacto = () => {
-  const [contacto, setContacto] = useState({});
+  const [contacto, setContacto] = useState({
+    nombre: "",
+    email: "",
+    mensaje: "",
+  });
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
   const validEmail = new RegExp(
@@ -16,15 +20,17 @@ const Contacto = () => {
   const handleUser = (event) =>
     setContacto({ ...contacto, [event.target.name]: event.target.value });
 
+  // Funcion para validar inputs
   const validarInput = (event) => {
     event.preventDefault();
     if (contacto.nombre === "") {
-      return setError("Nombre Invalido");
+      return setError("Nombre Inválido");
     } else if (!validEmail.test(contacto.email)) {
-      return setError("Correo invalido");
+      return setError("Correo inválido");
     } else if (contacto.mensaje === "") {
       return setError("Ingresa tu mensaje");
     }
+
     setError("");
     setSuccess("Pronto nos contactaremos contigo!!!");
 
@@ -39,10 +45,10 @@ const Contacto = () => {
         });
         const respuestaBackend = await response.json();
         if (respuestaBackend.message) {
-          setContacto({});
+          setContacto({ nombre: "", email: "", mensaje: "" }); // Limpiar campos
         }
       } catch (error) {
-        throw new Error("Hubo un problema al enviar los datos.");
+        setError("Hubo un problema al enviar los datos.");
       }
     };
     enviarDatosBack();
@@ -51,55 +57,51 @@ const Contacto = () => {
   return (
     <div className="contacto">
       <h3>CONTACTANOS</h3>
-      <div>
-        <form onSubmit={validarInput} className="publicacion">
-          <FloatingLabel
-            controlId="floatingTextarea"
-            label="Nombre"
-            className="mb-3"
-          >
-            <Form.Control
-              type="text"
-              placeholder="Nombre completo"
-              name="nombre"
-              value={contacto.nombre || ""}
-              onChange={handleUser}
-              className="input-contacto"
-            />
-          </FloatingLabel>
-          <FloatingLabel
-            controlId="floatingInput"
-            label="Correo Electronico"
-            className="mb-3"
-          >
-            <Form.Control
-              type="email"
-              placeholder="name@example.com"
-              name="email"
-              value={contacto.email || ""}
-              onChange={handleUser}
-              className="input-contacto"
-            />
-          </FloatingLabel>
-          <FloatingLabel
-            controlId="floatingTextarea2"
-            label="Deja tu mesaje aqui"
-          >
-            <Form.Control
-              as="textarea"
-              placeholder="Deja tu mesaje aqui"
-              name="mensaje"
-              value={contacto.mensaje || ""}
-              onChange={handleUser}
-              className="input-contacto"
-            />
-          </FloatingLabel>
-          <Alert error={error} success={success} />
-          <Button type="submit" variant="btn btn-outline-dark">
-            Enviar
-          </Button>
-        </form>
-      </div>
+      <form onSubmit={validarInput} className="publicacion">
+        <FloatingLabel
+          controlId="floatingTextarea"
+          label="Nombre"
+          className="mb-3"
+        >
+          <Form.Control
+            type="text"
+            placeholder="Nombre completo"
+            name="nombre"
+            value={contacto.nombre}
+            onChange={handleUser}
+          />
+        </FloatingLabel>
+        <FloatingLabel
+          controlId="floatingInput"
+          label="Correo Electrónico"
+          className="mb-3"
+        >
+          <Form.Control
+            type="email"
+            placeholder="name@example.com"
+            name="email"
+            value={contacto.email}
+            onChange={handleUser}
+          />
+        </FloatingLabel>
+        <FloatingLabel controlId="floatingTextarea2" label="Déjanos tu mensaje">
+          <Form.Control
+            as="textarea"
+            placeholder="Déjanos tu mensaje aquí"
+            name="mensaje"
+            value={contacto.mensaje}
+            onChange={handleUser}
+          />
+        </FloatingLabel>
+        <Alert error={error} success={success} />
+        <Button
+          className="btn-enviar"
+          type="submit"
+          variant="btn btn-outline-dark"
+        >
+          Enviar
+        </Button>
+      </form>
     </div>
   );
 };
