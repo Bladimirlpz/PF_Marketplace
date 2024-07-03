@@ -31,27 +31,31 @@ function App() {
           <ProductosProvider>
             <CarritoProvider>
               <MisPublicacionesProvider>
-                <BarraNav />
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/home" element={<Home />} />
-                  <Route path="/productos" element={<Producto />} />
-                  <Route path="/nosotros" element={<Nosotros />} />
-                  <Route path="/contacto" element={<Contacto />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/registrarse" element={<Registrarse />} />
-                  <Route path="/carrito" element={<Carrito />} />
-                  <Route path="/:id" element={<DetalleProducto />} />
-                  <Route path="/perfil" element={<MiPerfil />} />
-                  <Route path="/publicar" element={<PublicarProducto />} />
-                  <Route path="/notFound" element={<NotFound />} />
-                  <Route
-                    path="/mis-publicaciones"
-                    element={<MisPublicaciones />}
-                  />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-                <Footer />
+                <div className="content-wrapper">
+                  <BarraNav />
+                  <main className="main-content">
+                    <Routes>
+                      <Route path="/" element={<Home />} />
+                      <Route path="/home" element={<Home />} />
+                      <Route path="/productos" element={<Producto />} />
+                      <Route path="/nosotros" element={<Nosotros />} />
+                      <Route path="/contacto" element={<Contacto />} />
+                      <Route path="/login" element={<Login />} />
+                      <Route path="/registrarse" element={<Registrarse />} />
+                      <Route path="/carrito" element={<Carrito />} />
+                      <Route path="/:id" element={<DetalleProducto />} />
+                      <Route path="/perfil" element={<MiPerfil />} />
+                      <Route path="/publicar" element={<PublicarProducto />} />
+                      <Route path="/notFound" element={<NotFound />} />
+                      <Route
+                        path="/mis-publicaciones"
+                        element={<MisPublicaciones />}
+                      />
+                      <Route path="*" element={<NotFound />} />
+                    </Routes>
+                  </main>
+                  <Footer />
+                </div>
               </MisPublicacionesProvider>
             </CarritoProvider>
           </ProductosProvider>
